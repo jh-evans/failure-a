@@ -6,7 +6,6 @@ import org.apache.commons.lang3.tuple.*;
 public class Main {
 	
 	public Success<ImmutablePair<String, String>> retrieveTwo(boolean fail) {
-		
 		if(fail) {			
 			ImmutablePair<String, String> pair = new ImmutablePair<String, String>("Hello", "");
 			return new FailurePartialResult<ImmutablePair<String, String>>(pair);
