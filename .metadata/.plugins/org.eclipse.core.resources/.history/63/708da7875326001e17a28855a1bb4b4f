@@ -1,0 +1,12 @@
+package org.apache.commons.failure;
+
+public abstract class Failure<T> extends Success<T> {
+	public Failure(T t) {
+		super(t);
+	}
+	
+	@Override
+	public boolean eval() {
+		return false;
+	}
+}

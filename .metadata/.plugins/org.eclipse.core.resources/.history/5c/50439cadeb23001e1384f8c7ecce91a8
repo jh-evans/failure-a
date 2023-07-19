@@ -1,0 +1,10 @@
+package org.apache.commons.failure.tests;
+
+import org.junit.jupiter.api.Test;
+
+class Tests {
+    @Test
+    void addition() {
+    }
+
+}

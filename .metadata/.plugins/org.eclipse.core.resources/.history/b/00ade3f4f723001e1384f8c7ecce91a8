@@ -1,0 +1,7 @@
+package org.apache.commons.failure;
+
+public abstract class F {
+	public boolean eval() {
+		return false;
+	}
+}

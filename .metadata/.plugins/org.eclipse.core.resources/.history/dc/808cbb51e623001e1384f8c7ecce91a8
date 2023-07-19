@@ -1,0 +1,5 @@
+package org.apache.commons.failure;
+
+public class Failure {
+
+}

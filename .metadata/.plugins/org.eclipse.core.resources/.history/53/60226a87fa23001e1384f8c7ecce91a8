@@ -1,0 +1,33 @@
+package org.apache.commons.failure;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+public class Main {
+
+	public static void main(String[] args) {
+		try {
+    		Class<?> cls = Class.forName("org.apache.commons.failure.Failure");    
+    		Constructor<?> c = cls.getConstructor();
+    		Object f = c.newInstance();
+        } catch(InstantiationException ie) {
+        	assertEquals(true, true, "here");
+        } catch(ClassNotFoundException cnfe ) {
+        	assertEquals(true, false, "here2");
+        } catch(NoSuchMethodException nsme) {
+        	assertEquals(true, false, "here3");
+        } catch(IllegalAccessException iae) {
+        	assertEquals(true, false, "here4");
+		} catch(IllegalArgumentException iae) {
+        	assertEquals(true, false, "here5");
+		} catch (InvocationTargetException ite) {
+        	assertEquals(true, false, "here6");
+		}
+
+	}
+
+	private static void assertEquals(boolean b, boolean c, String string) {
+		System.out.println(string);
+	}
+
+}

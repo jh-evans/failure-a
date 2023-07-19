@@ -1,0 +1,13 @@
+package org.apache.commons.failure;
+
+public class FailureException<T> extends Failure<T> {
+	Number n;
+	
+	public FailureException(Number n) {
+		this.n = n;
+	}
+
+	public Number getValue() {
+		return this.n;
+	}
+}

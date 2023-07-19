@@ -1,0 +1,57 @@
+package org.apache.commons.use.two;
+
+import org.apache.commons.failure.*;
+import org.apache.commons.lang3.tuple.*;
+
+public class Main {
+	
+	public Success<ImmutablePair<String, String>> retrieveTwo(boolean fail) {
+		
+		if(fail) {			
+			ImmutablePair<String, String> pair = new ImmutablePair<String, String>("Hello", "");
+			return new FailurePartialResult<ImmutablePair<String, String>>(pair);
+		} else {			
+			ImmutablePair<String, String> pair = new ImmutablePair<String, String>("Hello", "world");
+			return new Success<ImmutablePair<String, String>>(pair);
+		}
+	}
+
+	public static void main(String[] args) {
+		Main m = new Main();
+
+		Success<ImmutablePair<String, String>> pair = m.retrieveTwo(true);
+		
+		if(pair.eval()) {
+			System.out.println("Success, result is: " + pair.unwrap());
+		} else {
+			switch(pair) {
+    			case FailurePartialResult<ImmutablePair<String, String>> fpr -> System.out.println("Failed with fpr " + fpr.unwrap());
+	    		default -> System.out.println("As written, cannot happen");
+			}
+		}
+		
+		/*
+		idx = m.parse(null);
+		if(idx.eval()) {
+			System.out.println(idx.unwrap());
+		} else {
+			switch(idx) {
+			    case FailureValue<Number> fv -> System.out.println("Failed with fv " + fv.getValue());
+			    case FailureException<Number> fe -> System.out.println("Failed with fe " + fe.getException());
+			    default -> System.out.println("As written, cannot happen");
+			}
+		}
+		
+		idx = m.parse("not there");
+		if(idx.eval()) {
+			System.out.println(idx.unwrap());
+		} else {
+			switch(idx) {
+			    case FailureValue<Number> fv -> System.out.println("Failed with fv " + fv.getValue());
+			    case FailureException<Number> fe -> System.out.println("Failed with fe " + fe.getException());
+			    default -> System.out.println("As written, cannot happen");
+			}
+		}
+		*/
+	}
+}

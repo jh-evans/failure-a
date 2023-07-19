@@ -1,0 +1,14 @@
+package org.apache.commons.failure.tests;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import org.apache.commons.failure.Success;
+
+class Tests {
+    @Test
+    void success_evaluation_test() {
+    	assertEquals(new Success<String>("Hello").eval(), true);
+    }
+}

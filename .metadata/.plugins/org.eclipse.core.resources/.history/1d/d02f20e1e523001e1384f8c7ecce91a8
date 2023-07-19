@@ -1,0 +1,10 @@
+package org.apache.commons.failure;
+
+public class Success<T> {
+	private T value;
+	
+	public T unwrap() {
+		return this.value;
+	}
+
+}
