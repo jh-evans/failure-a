@@ -6,7 +6,7 @@ public class FailureException<T> extends Failure<T> {
 	public FailureException(Exception e) {
 		this.e = e;
 	}
-
+	
 	public Exception getException() {
 		return this.e;
 	}

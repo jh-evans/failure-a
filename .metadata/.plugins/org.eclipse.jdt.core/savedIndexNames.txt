@@ -4,7 +4,6 @@ INDEX VERSION 1.134+C:\Users\jheva\eclipse-workspace\.metadata\.plugins\org.ecli
 3383453189.index
 3960484918.index
 2143773868.index
-3053819374.index
 3645050911.index
 2110968725.index
 469287170.index

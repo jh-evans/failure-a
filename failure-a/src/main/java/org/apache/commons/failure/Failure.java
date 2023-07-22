@@ -4,8 +4,7 @@ public abstract class Failure<T> extends Success<T> {
 	protected Failure() {
 	}
 	
-	public Failure(T t) {
-		super(t);
+	private Failure(T t) {
 	}
 	
 	@Override

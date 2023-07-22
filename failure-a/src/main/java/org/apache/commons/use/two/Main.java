@@ -24,7 +24,10 @@ public class Main {
 			System.out.println("Success, result is: " + pair.unwrap());
 		} else {
 			switch(pair) {
-    			case FailurePartialResult<ImmutablePair<String, String>> fpr -> System.out.println("Failed with fpr " + fpr.getPartialResult());
+    			case FailurePartialResult<ImmutablePair<String, String>> fpr ->
+    			{
+    				System.out.println("Failed with fpr " + fpr.getPartialResult());
+    			}
 	    		default -> System.out.println("As written, cannot happen");
 			}
 		}
@@ -35,7 +38,8 @@ public class Main {
 			System.out.println("Success, result is: " + pair.unwrap());
 		} else {
 			switch(pair) {
-    			case FailurePartialResult<ImmutablePair<String, String>> fpr -> System.out.println("Failed with fpr " + fpr.unwrap());
+    			case FailurePartialResult<ImmutablePair<String, String>> fpr ->
+    			    System.out.println("Failed with fpr " + fpr.unwrap());
 	    		default -> System.out.println("As written, cannot happen");
 			}
 		}
