@@ -1,6 +1,7 @@
 package org.apache.commons.use.three;
 
 import org.apache.commons.failure.*;
+import org.apache.commons.failure.impl.*;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.core5.http.io.entity.EntityUtils;

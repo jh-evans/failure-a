@@ -1,16 +1,15 @@
 package org.apache.commons.failure.tests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import org.apache.commons.failure.SuccessImpl;
-import org.apache.commons.failure.FailureValueImpl;
-import org.apache.commons.failure.FailureExceptionImpl;
+import org.apache.commons.failure.impl.SuccessImpl;
+import org.apache.commons.failure.impl.FailureValueImpl;
+import org.apache.commons.failure.impl.FailureExceptionImpl;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 class Tests {

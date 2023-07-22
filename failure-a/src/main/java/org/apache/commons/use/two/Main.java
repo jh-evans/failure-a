@@ -1,6 +1,7 @@
 package org.apache.commons.use.two;
 
 import org.apache.commons.failure.*;
+import org.apache.commons.failure.impl.*;
 import org.apache.commons.lang3.tuple.*;
 
 public class Main {

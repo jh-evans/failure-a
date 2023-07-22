@@ -1,4 +1,6 @@
-package org.apache.commons.failure;
+package org.apache.commons.failure.impl;
+
+import org.apache.commons.failure.Success;
 
 public class SuccessImpl<T> implements Success<T> {
 	protected T value;

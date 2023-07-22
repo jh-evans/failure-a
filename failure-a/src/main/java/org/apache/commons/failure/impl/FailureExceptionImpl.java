@@ -1,4 +1,6 @@
-package org.apache.commons.failure;
+package org.apache.commons.failure.impl;
+
+import org.apache.commons.failure.FailureException;
 
 public class FailureExceptionImpl<T> implements FailureException<T> {
 	T t;

@@ -1,6 +1,7 @@
 package org.apache.commons.use.one;
 
 import org.apache.commons.failure.*;
+import org.apache.commons.failure.impl.*;
 
 public class Main {
 	

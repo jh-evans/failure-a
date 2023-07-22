@@ -1,4 +1,6 @@
-package org.apache.commons.failure;
+package org.apache.commons.failure.impl;
+
+import org.apache.commons.failure.FailurePartialResult;
 
 public class FailurePartialResultImpl<T> implements FailurePartialResult<T>  {
 	private T t;

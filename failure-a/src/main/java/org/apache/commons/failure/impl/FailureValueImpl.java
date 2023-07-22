@@ -1,4 +1,6 @@
-package org.apache.commons.failure;
+package org.apache.commons.failure.impl;
+
+import org.apache.commons.failure.FailureValue;
 
 public class FailureValueImpl<T> implements FailureValue<T> {
 	T t;
