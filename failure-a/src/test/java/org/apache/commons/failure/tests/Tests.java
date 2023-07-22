@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import org.apache.commons.failure.Success;
-import org.apache.commons.failure.FailureValue;
-import org.apache.commons.failure.FailureException;
+import org.apache.commons.failure.SuccessImpl;
+import org.apache.commons.failure.FailureValueImpl;
+import org.apache.commons.failure.FailureExceptionImpl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,7 +16,7 @@ import java.lang.reflect.Modifier;
 class Tests {
     @Test
     void success_evaluation_test() {
-    	assertTrue(new Success<String>("Test string").eval());
+    	assertTrue(new SuccessImpl<String>("Test string").eval());
     }
 
     @Test
@@ -36,10 +36,10 @@ class Tests {
 
     @Test
     void failure_value_evaluation_test() {
-    	assertFalse(new FailureValue<String>(6).eval());
+    	assertFalse(new FailureValueImpl<String>(6).eval());
     }
     @Test
     void failure_exception_evaluation_test() {
-    	assertFalse(new FailureException<String>(new Exception("Test exception")).eval());
+    	assertFalse(new FailureExceptionImpl<String>(new Exception("Test exception")).eval());
     }
 }

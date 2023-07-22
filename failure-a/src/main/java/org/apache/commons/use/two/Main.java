@@ -8,10 +8,10 @@ public class Main {
 	public Success<ImmutablePair<String, String>> retrieveTwo(boolean fail) {
 		if(fail) {			
 			ImmutablePair<String, String> pair = new ImmutablePair<String, String>("Hello", "");
-			return new FailurePartialResult<ImmutablePair<String, String>>(pair);
+			return new FailurePartialResultImpl<ImmutablePair<String, String>>(pair);
 		} else {			
 			ImmutablePair<String, String> pair = new ImmutablePair<String, String>("Hello", "world");
-			return new Success<ImmutablePair<String, String>>(pair);
+			return new SuccessImpl<ImmutablePair<String, String>>(pair);
 		}
 	}
 

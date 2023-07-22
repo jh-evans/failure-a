@@ -1,9 +1,13 @@
 package org.apache.commons.failure;
 
-public class FailurePartialResult<T> extends Failure<T> {
+public class FailurePartialResultImpl<T> implements FailurePartialResult<T>  {
 	private T t;
-	public FailurePartialResult(T t) {
+	public FailurePartialResultImpl(T t) {
 		this.t = t;
+	}
+
+	public boolean eval() {
+		return false;
 	}
 	
 	public T getPartialResult() {

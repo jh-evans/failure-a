@@ -6,15 +6,15 @@ public class Main {
 	
 	public Success<Number> parse(String input) {
         if(input == null) {
-            return new FailureException<Number>(new IllegalArgumentException("String input cannot be null"));
+            return new FailureExceptionImpl<Number>(new IllegalArgumentException("String input cannot be null"));
 		}
 		
 		int idx = input.indexOf("Hello World");
 		
 		if(idx == -1) {
-			return new FailureValue<Number>(idx);
+			return new FailureValueImpl<Number>(idx);
 		} else {
-			return new Success<Number>(idx);
+			return new SuccessImpl<Number>(idx);
 		}		
 	}
 

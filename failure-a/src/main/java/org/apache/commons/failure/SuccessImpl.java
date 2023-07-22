@@ -1,12 +1,12 @@
 package org.apache.commons.failure;
 
-public class Success<T> {
-	private T value;
+public class SuccessImpl<T> implements Success<T> {
+	protected T value;
 	
-	protected Success() {
+	protected SuccessImpl() {
 	}
 	
-	public Success(T value) {
+	public SuccessImpl(T value) {
 		this.value = value;
 	}
 	
