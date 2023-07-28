@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import org.apache.commons.failure.impl.SuccessImpl;
-import org.apache.commons.failure.impl.FailureValueImpl;
-import org.apache.commons.failure.impl.FailureExceptionImpl;
+import com.huwevans.darien.impl.FailureExceptionImpl;
+import com.huwevans.darien.impl.FailureValueImpl;
+import com.huwevans.darien.impl.SuccessImpl;
 
 import java.lang.reflect.Modifier;
 

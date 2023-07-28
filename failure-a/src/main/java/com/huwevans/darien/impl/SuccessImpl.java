@@ -1,6 +1,6 @@
-package org.apache.commons.failure.impl;
+package com.huwevans.darien.impl;
 
-import org.apache.commons.failure.Success;
+import com.huwevans.darien.Success;
 
 public class SuccessImpl<T> implements Success<T> {
 	protected T value;

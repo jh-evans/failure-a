@@ -1,4 +1,4 @@
-package org.apache.commons.failure;
+package com.huwevans.darien;
 
 public interface Success<T> {
 	public boolean eval();

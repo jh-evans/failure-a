@@ -1,35 +1,36 @@
-package org.apache.commons.use.three;
-
-import org.apache.commons.failure.*;
-import org.apache.commons.failure.impl.*;
+package com.huwevans.darien.use.two;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+
+import com.huwevans.darien.*;
+import com.huwevans.darien.impl.*;
+
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 
 public class Main {
 	
 	public Success<String> getPage(String url) {
-    try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-        final HttpGet httpget = new HttpGet(url);
-
-        Result result = httpclient.execute(httpget, response -> {
-            return new Result(response.getCode(), EntityUtils.toString(response.getEntity()));
-        });
-
-        if(result.status_code >= 200 && result.status_code <= 299) {
-                return new SuccessImpl<String>(result.page);
-        } else {
-                return new FailureValueImpl<String>(result.status_code);
-        }
-
-    } catch(java.io.IOException ioe) {
-            return new FailureExceptionImpl<String>(ioe);
-    } catch(Exception e) {
-            return new FailureExceptionImpl<String>(e);
-    }
-}
+	    try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+	        final HttpGet httpget = new HttpGet(url);
+	
+	        Result result = httpclient.execute(httpget, response -> {
+	            return new Result(response.getCode(), EntityUtils.toString(response.getEntity()));
+	        });
+	
+	        if(result.status_code >= 200 && result.status_code <= 299) {
+	                return new SuccessImpl<String>(result.page);
+	        } else {
+	                return new FailureValueImpl<String>(result.status_code);
+	        }
+	
+	    } catch(java.io.IOException ioe) {
+	            return new FailureExceptionImpl<String>(ioe);
+	    } catch(Exception e) {
+	            return new FailureExceptionImpl<String>(e);
+	    }
+	}
 
 public static void main(String[] argv) {
         Main m = new Main();

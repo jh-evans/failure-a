@@ -1,6 +1,6 @@
-package org.apache.commons.failure.impl;
+package com.huwevans.darien.impl;
 
-import org.apache.commons.failure.FailureException;
+import com.huwevans.darien.FailureException;
 
 public class FailureExceptionImpl<T> implements FailureException<T> {
 	T t;

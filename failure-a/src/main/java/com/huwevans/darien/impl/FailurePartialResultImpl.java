@@ -1,6 +1,6 @@
-package org.apache.commons.failure.impl;
+package com.huwevans.darien.impl;
 
-import org.apache.commons.failure.FailurePartialResult;
+import com.huwevans.darien.FailurePartialResult;
 
 public class FailurePartialResultImpl<T> implements FailurePartialResult<T>  {
 	private T t;

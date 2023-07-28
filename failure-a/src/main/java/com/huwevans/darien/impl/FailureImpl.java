@@ -1,4 +1,4 @@
-package org.apache.commons.failure.impl;
+package com.huwevans.darien.impl;
 
 public abstract class FailureImpl<T> extends SuccessImpl<T> {
 	protected FailureImpl() {

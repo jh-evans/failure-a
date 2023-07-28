@@ -1,4 +1,4 @@
-package org.apache.commons.failure;
+package com.huwevans.darien;
 
 public interface Failure<T> extends Success<T> {
 }

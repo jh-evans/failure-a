@@ -4,6 +4,7 @@
 	<item key="org.eclipse.jdt.debug.ui.jre_preference_page_context.columnWidth1" value="609"/>
 	<item key="org.eclipse.jdt.debug.ui.jre_preference_page_context.columnWidth2" value="82"/>
 	<item key="org.eclipse.jdt.debug.ui.jre_preference_page_context.sortColumn" value="1"/>
+	<item key="JavaDependenciesTab.LAST_PATH_SETTING" value="C:\Users\jheva\.m2\repository\org\slf4j\slf4j-jdk14\1.5.6"/>
 	<section name="org.eclipse.jdt.debug.ui.MAIN_METHOD_SELECTION_DIALOG">
 		<item key="ShowStatusLine" value="true"/>
 		<item key="History" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;History&gt;&#x0D;&#x0A;&lt;historyRootNode&gt;&#x0D;&#x0A;&lt;infoNode&gt;=failure-a/C:\/Users\/jheva\/.m2\/repository\/junit\/junit\/4.12\/junit-4.12.jar=/maven.pomderived=/true=/=/test=/true=/=/maven.groupId=/junit=/=/maven.artifactId=/junit=/=/maven.version=/4.12=/=/maven.scope=/test=/=/maven.pomderived=/true=/&amp;lt;org.junit.runner(JUnitCore.class[JUnitCore&lt;/infoNode&gt;&#x0D;&#x0A;&lt;infoNode&gt;=failure-a/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&amp;lt;org.apache.commons.use.one{Main.java[Main&lt;/infoNode&gt;&#x0D;&#x0A;&lt;/historyRootNode&gt;&#x0D;&#x0A;&lt;/History&gt;"/>
@@ -14,5 +15,13 @@
 			<item key="DIALOG_Y_ORIGIN" value="191"/>
 			<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 		</section>
+	</section>
+	<section name="expressionHistory">
+		<item key="expressionHistoryEntry_0" value="System.out.println(method_args.length);&#x0D;&#x0A;"/>
+		<item key="expressionHistoryEntryCount" value="1"/>
+	</section>
+	<section name="conditionHistory">
+		<item key="conditionHistoryEntry_0" value="obj.getMethodName(cpg).equals(&quot;printStackTrace&quot;);"/>
+		<item key="conditionHistoryEntryCount" value="1"/>
 	</section>
 </section>

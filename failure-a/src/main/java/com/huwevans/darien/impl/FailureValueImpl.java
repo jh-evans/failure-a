@@ -1,6 +1,6 @@
-package org.apache.commons.failure.impl;
+package com.huwevans.darien.impl;
 
-import org.apache.commons.failure.FailureValue;
+import com.huwevans.darien.FailureValue;
 
 public class FailureValueImpl<T> implements FailureValue<T> {
 	T t;

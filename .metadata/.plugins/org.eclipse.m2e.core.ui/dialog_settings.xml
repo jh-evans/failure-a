@@ -2,6 +2,9 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Users\jheva\eclipse-folders"/>
+			<item value="C:\Users\jheva\eclipse-workspace"/>
+			<item value="C:\Users\jheva\eclipse-workspace\call-graph"/>
 			<item value="C:\Users\jheva\eclipse-workspace\failure"/>
 		</list>
 		<list key="projectNameTemplate">
@@ -45,11 +48,13 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
+			<item value="call-graph"/>
 			<item value="failure-g"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="call-graph-a"/>
 			<item value="failure-a"/>
 		</list>
 		<list key="projectNameTemplate">

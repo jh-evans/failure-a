@@ -2,4 +2,21 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="java.lang.Math"/>
     <fullyQualifiedTypeName name="java.lang.reflect.Modifier"/>
+    <fullyQualifiedTypeName name="org.apache.commons.failure.FailureException"/>
+    <fullyQualifiedTypeName name="org.apache.commons.failure.Success"/>
+    <fullyQualifiedTypeName name="org.apache.commons.failure.FailureValue"/>
+    <fullyQualifiedTypeName name="org.apache.commons.failure.FailurePartialResult"/>
+    <fullyQualifiedTypeName name="org.apache.bcel.classfile.JavaClass"/>
+    <fullyQualifiedTypeName name="org.apache.bcel.generic.ATHROW"/>
+    <fullyQualifiedTypeName name="org.apache.bcel.generic.ExceptionThrower"/>
+    <fullyQualifiedTypeName name="org.apache.jorphan.collections.HashTree"/>
+    <fullyQualifiedTypeName name="org.apache.jorphan.collections.HashTreeTraverser"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.InaccessibleObjectException"/>
+    <fullyQualifiedTypeName name="java.util.AbstractList"/>
+    <fullyQualifiedTypeName name="com.huwevans.callgraph.tree.Tree"/>
+    <fullyQualifiedTypeName name="com.huwevans.callgraph.tree.DepthFirstTraverse"/>
+    <fullyQualifiedTypeName name="com.huwevans.callgraph.tree.BreadthFirstTraverse"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.huwevans.callgraph.tree.Node"/>
 </qualifiedTypeNameHistroy>

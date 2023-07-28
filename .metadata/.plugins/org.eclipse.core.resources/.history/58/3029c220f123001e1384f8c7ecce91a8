@@ -1,8 +1,0 @@
-package org.apache.commons.failure;
-
-public class Failure<T> extends Success<T> {
-	@Override
-	public boolean eval() {
-		return true;
-	}
-}
