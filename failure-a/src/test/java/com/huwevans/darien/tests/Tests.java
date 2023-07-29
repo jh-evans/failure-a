@@ -1,4 +1,4 @@
-package org.apache.commons.failure.tests;
+package com.huwevans.darien.tests;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -21,7 +21,7 @@ class Tests {
     @Test
     void failure_creation_test() {
     	try {
-    		Class<?> cls = Class.forName("org.apache.commons.failure.Failure");    
+    		Class<?> cls = Class.forName("com.huwevans.darien.Failure");    
     		assertTrue(Modifier.isAbstract(cls.getModifiers()));
     		return;
         } catch(ClassNotFoundException cnfe ) {

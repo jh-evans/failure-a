@@ -1,11 +1,11 @@
-package com.huwevans.darien.use.two;
+package com.huwevans.darien.use.nogenerics.two;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 
-import com.huwevans.darien.*;
-import com.huwevans.darien.impl.*;
-import com.huwevans.darien.utils.FailureUtils;
+import com.huwevans.darien.nogeneric.types.*;
+import com.huwevans.darien.nogeneric.types.impl.*;
+import com.huwevans.darien.nogenerics.utils.FailureUtils;
 
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
@@ -18,9 +18,9 @@ public class Main {
 	 * 
 	 * @returns 
 	 */
-	public Success<String> getPage(String url) {
+	public Success getPage(String url) {
 		if(FailureUtils.oneIsNull(url)) {
-			return new FailureArgIsNullImpl<String>(FailureUtils.theNull(url));
+			return FailureUtils.theNull(url);
 		}
 	    try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 	        final HttpGet httpget = new HttpGet(url);
@@ -30,28 +30,28 @@ public class Main {
 	        });
 	
 	        if(result.status_code >= 200 && result.status_code <= 299) {
-	                return new SuccessImpl<String>(result.page);
+	                return new SuccessImpl(result.page);
 	        } else {
-	                return new FailureValueImpl<String>(result.status_code);
+	                return new FailureValueImpl(result.status_code);
 	        }
 	
 	    } catch(java.io.IOException ioe) {
-	            return new FailureExceptionImpl<String>(ioe);
+	            return new FailureExceptionImpl(ioe);
 	    } catch(Exception e) {
-	            return new FailureExceptionImpl<String>(e);
+	            return new FailureExceptionImpl(e);
 	    }
 	}
 
 public static void main(String[] argv) {
         Main m = new Main();
 
-        Success<String> page = m.getPage(null);
+        Success page = m.getPage(null);
         if(page.eval()) {
                 System.out.println("Success");
         } else {
             switch (page) {
-                case FailureArgIsNull<String> fa -> System.out.println(fa.getIndex());
-                case FailureException<String> fe -> System.out.println(fe.getException());
+                case FailureArgIsNull fa -> System.out.println(fa);
+                case FailureException fe -> System.out.println(fe.getException());
                 default  -> System.out.println("As currently written, not possible.");
             }
         }
@@ -68,9 +68,9 @@ public static void main(String[] argv) {
                 System.out.println("Success");
         } else {
                 switch (page) {
-                    case FailureArgIsNull<String> fa -> System.out.println(fa.unwrap());
-                    case FailureValue<String> fv -> System.out.println(fv.getValue());
-                    case FailureException<String> fe -> System.out.println(fe.getException());
+                    case FailureArgIsNull fa -> System.out.println(fa.unwrap());
+                    case FailureValue fv -> System.out.println(fv.getValue());
+                    case FailureException fe -> System.out.println(fe.getException());
                     default  -> System.out.println("As currently written, not possible.");
                 }
         }
@@ -80,9 +80,9 @@ public static void main(String[] argv) {
                 System.out.println("Success");
         } else {
                 switch (page) {
-                    case FailureArgIsNull<String> fa -> System.out.println(fa.unwrap());
-                    case FailureValue<String> fv -> System.out.println(fv.getValue());
-                    case FailureException<String> fe -> System.out.println(fe.getException());
+                    case FailureArgIsNull fa -> System.out.println(fa.unwrap());
+                    case FailureValue fv -> System.out.println(fv.getValue());
+                    case FailureException fe -> System.out.println(fe.getException());
                     default  -> System.out.println("As currently written, not possible.");
                 }
         }
