@@ -22,6 +22,10 @@ public class Main {
 		if(FailureUtils.oneIsNull(url)) {
 			return FailureUtils.theNull(url);
 		}
+		
+		if(url.startsWith("http:")) {
+			return new FailureInvalidArgImpl("url must start with https");
+		}
 	    try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 	        final HttpGet httpget = new HttpGet(url);
 	
@@ -45,7 +49,19 @@ public class Main {
 public static void main(String[] argv) {
         Main m = new Main();
 
-        Success page = m.getPage(null);
+        Success page = m.getPage("http://www.example.com");
+        if(page.eval()) {
+                System.out.println("Success");
+        } else {
+            switch (page) {
+                case FailureInvalidArg fia -> System.out.println(fia);
+                case FailureArgIsNull fa -> System.out.println(fa);
+                case FailureException fe -> System.out.println(fe.getException());
+                default  -> System.out.println("As currently written, not possible.");
+            }
+        }
+
+        page = m.getPage(null);
         if(page.eval()) {
                 System.out.println("Success");
         } else {
@@ -82,7 +98,7 @@ public static void main(String[] argv) {
                 switch (page) {
                     case FailureArgIsNull fa -> System.out.println(fa.unwrap());
                     case FailureValue fv -> System.out.println(fv.getValue());
-                    case FailureException fe -> System.out.println(fe.getException());
+                    case FailureException fe -> System.out.println(fe.errorLocation());
                     default  -> System.out.println("As currently written, not possible.");
                 }
         }
