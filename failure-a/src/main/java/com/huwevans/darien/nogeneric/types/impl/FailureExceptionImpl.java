@@ -4,11 +4,11 @@ import com.huwevans.darien.nogeneric.types.FailureException;
 
 public class FailureExceptionImpl implements FailureException {
 	Exception e;
-	StackTraceElement ste;
+	StackTraceElement[] ste;
 	
 	public FailureExceptionImpl(Exception e) {
 		this.e = e;
-		this.ste = new Exception().getStackTrace()[1];
+		this.ste = new Exception().getStackTrace();
 	}
 	
 	public Exception getException() {
@@ -16,7 +16,11 @@ public class FailureExceptionImpl implements FailureException {
 	}
 	
 	public String errorLocation() {
-		return ste.getClassName() + "." + ste.getMethodName() + "(" + ste.getFileName() + ":" + ste.getLineNumber() + ")";
+		String msg = "";
+		for(StackTraceElement ste: this.ste) {
+			msg += ste.toString() + "\n";
+		}
+		return msg;
 	}
 	
 	public boolean eval() {
