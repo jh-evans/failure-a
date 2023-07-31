@@ -6,22 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.huwevans.darien.impl.FailureExceptionImpl;
-import com.huwevans.darien.impl.FailureValueImpl;
-import com.huwevans.darien.impl.SuccessImpl;
+import com.huwevans.darien.types.impl.FE;
+import com.huwevans.darien.types.impl.FV;
+import com.huwevans.darien.types.impl.Success;
 
 import java.lang.reflect.Modifier;
 
 class Tests {
     @Test
     void success_evaluation_test() {
-    	assertTrue(new SuccessImpl<String>("Test string").eval());
+    	assertTrue(new Success("Test string").eval());
     }
 
     @Test
     void failure_creation_test() {
     	try {
-    		Class<?> cls = Class.forName("com.huwevans.darien.Failure");    
+    		Class<?> cls = Class.forName("com.huwevans.darien.types.F");    
     		assertTrue(Modifier.isAbstract(cls.getModifiers()));
     		return;
         } catch(ClassNotFoundException cnfe ) {
@@ -35,10 +35,10 @@ class Tests {
 
     @Test
     void failure_value_evaluation_test() {
-    	assertFalse(new FailureValueImpl<String>(6).eval());
+    	assertFalse(new FV(6).eval());
     }
     @Test
     void failure_exception_evaluation_test() {
-    	assertFalse(new FailureExceptionImpl<String>(new Exception("Test exception")).eval());
+    	assertFalse(new FE(new Exception("Test exception")).eval());
     }
 }

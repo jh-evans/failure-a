@@ -19,4 +19,8 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.huwevans.callgraph.tree.Node"/>
+    <fullyQualifiedTypeName name="com.huwevans.darien.utils.FailureUtils"/>
+    <fullyQualifiedTypeName name="com.huwevans.darien.FailureArgIsNull"/>
+    <fullyQualifiedTypeName name="com.huwevans.darien.nogenerics.utils.FailureUtils"/>
+    <fullyQualifiedTypeName name="com.huwevans.darien.nogeneric.types.FailureInvalidArg"/>
 </qualifiedTypeNameHistroy>

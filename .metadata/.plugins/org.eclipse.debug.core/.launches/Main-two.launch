@@ -2,7 +2,7 @@
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
     <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-        <listEntry value="/failure-a/src/main/java/com/huwevans/darien/use/two/Main.java"/>
+        <listEntry value="/failure-a/src/main/java/com/huwevans/darien/types/use/two/Main.java"/>
     </listAttribute>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
         <listEntry value="1"/>
@@ -19,7 +19,7 @@
     <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.m2e.launchconfig.classpathProvider"/>
     <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
     <stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-20/"/>
-    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.huwevans.darien.use.two.Main"/>
+    <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.huwevans.darien.types.use.two.Main"/>
     <listAttribute key="org.eclipse.jdt.launching.MODULEPATH">
         <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry containerPath=&quot;org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-20/&quot; path=&quot;4&quot; type=&quot;4&quot;/&gt;&#13;&#10;"/>
     </listAttribute>
