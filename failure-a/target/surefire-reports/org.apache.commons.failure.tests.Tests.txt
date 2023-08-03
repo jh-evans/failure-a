@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.apache.commons.failure.tests.Tests
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.028 s <<< FAILURE! - in org.apache.commons.failure.tests.Tests
-failure_creation_test  Time elapsed: 0.011 s  <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
-	at org.apache.commons.failure.tests.Tests.failure_creation_test(Tests.java:28)
-

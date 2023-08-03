@@ -1,6 +1,8 @@
 package com.huwevans.darien.types.impl;
 
-public class FPR extends Failure {
+import com.huwevans.darien.types.FailurePartialResult;
+
+public class FPR extends Failure implements FailurePartialResult {
 	public FPR(Object value) {
 		this.value = value;
 	}

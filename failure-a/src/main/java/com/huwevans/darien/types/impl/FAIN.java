@@ -3,7 +3,9 @@ package com.huwevans.darien.types.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FAIN extends Failure {
+import com.huwevans.darien.types.FailureArgIsNull;
+
+public class FAIN extends Failure implements FailureArgIsNull {
     List<Number> idxs;
     StackTraceElement ste;
 	
@@ -16,10 +18,10 @@ public class FAIN extends Failure {
 		this.idxs.add(idx);
 	}
 	
-	public String toString() {
+	public String getLocation() {
 		String msg = "";
 		msg = "Args null at " + ste.getClassName() + "." + ste.getMethodName() + "(" + ste.getFileName() + ":" + ste.getLineNumber() + ")";
-		msg += "\nMethod arg positions: " + this.idxs;
+		msg += " null in arg " + ((this.idxs.size() == 1) ? "position " : "positions ") + this.idxs;
 		return msg;
 	}
 }

@@ -1,6 +1,8 @@
 package com.huwevans.darien.types.impl;
 
-public class FV extends Failure {
+import com.huwevans.darien.types.FailureValue;
+
+public class FV extends Failure implements FailureValue {
 	Number n;
 		
 	public FV(Number n) {

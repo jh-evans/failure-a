@@ -1,5 +1,10 @@
 package com.huwevans.darien.types.use.two;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
+
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 
@@ -18,10 +23,24 @@ public class Main {
 	 * 
 	 * @returns 
 	 */
+	
+	private class A {
+		public A(boolean... b) {
+		}
+	}
+	
 	public S getPage(String url) {
 		if(FailureUtils.oneIsNull(url)) {
 			return FailureUtils.theNull(url);
 		}
+		
+		A args = new A(url.startsWith("https"),url.startsWith("https"));
+	    boolean[] b = new boolean[] {url.startsWith("https"),url.startsWith("https")};
+
+		if(FailureUtils.oneIsFalse(b)) {
+			return FailureUtils.theFalse(b);
+		}
+		
 	    try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 	        final HttpGet httpget = new HttpGet(url);
 	
@@ -47,7 +66,7 @@ public static void main(String[] argv) {
 
         S page = m.getPage(null);
         if(page.eval()) {
-                System.out.println("S");
+                System.out.println(page);
         } else {
             switch (page) {
                 case FAIN fain -> System.out.println(fain);
@@ -58,14 +77,26 @@ public static void main(String[] argv) {
 
         page = m.getPage("https://www.example.com");
         if(page.eval()) {
-                System.out.println("S");
+                System.out.println("Success");
         } else {
-                System.out.println("F");
+                System.out.println("Failure");
         }
 
         page = m.getPage("https://www.example.com/nosuchpage"); // 404 is returned
         if(page.eval()) {
                 System.out.println("S");
+        } else {
+                switch (page) {
+                    case FAIN fa -> System.out.println(fa.unwrap());
+                    case FV fv -> System.out.println(fv.getValue());
+                    case FE fe -> System.out.println(fe.getException());
+                    default  -> System.out.println("As currently written, not possible.");
+                }
+        }
+
+        page = m.getPage("https://www.cannotfindthisdomain.com"); // an exception is generated
+        if(page.eval()) {
+                System.out.println("Success");
         } else {
                 switch (page) {
                     case FAIN fa -> System.out.println(fa.unwrap());
@@ -75,12 +106,13 @@ public static void main(String[] argv) {
                 }
         }
 
-        page = m.getPage("https://www.cannotfindthisdomain.com"); // an exception is generated
+        page = m.getPage("http://www.example.com");
         if(page.eval()) {
-                System.out.println("S");
+                System.out.println("Success");
         } else {
                 switch (page) {
-                    case FAIN fa -> System.out.println(fa.unwrap());
+                    case FAIN fa -> System.out.println(fa.getLocation());
+                    case FAIF ff -> System.out.println(ff.getLocation());
                     case FV fv -> System.out.println(fv.getLocation());
                     case FE fe -> System.out.println(fe.getException());
                     default  -> System.out.println("As currently written, not possible.");

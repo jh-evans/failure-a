@@ -1,25 +1,71 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>failure-g</groupId>
+  <groupId>org.darien-project.failure-a</groupId>
   <artifactId>failure-a</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
+  <description>
+    The Darien Project for Java makes handling code failure easy, telling you on which line the failure happene.
+    By focussing on the failure path you will build better, working code more quickly.
+  </description>
+  <url>https://darien-project.readthedocs.io/</url>
+  <licenses>
+    <license>
+	  <name>The Apache License, Version 2.0</name>
+	  <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+	</license>
+  </licenses>
+  <developers>
+    <developer>
+        <name>JH Evans</name>
+        <email>jhuwevans@gmail.com</email>
+        <organization>The Darien Project</organization>
+        <organizationUrl>https://darien-project.readthedocs.io/</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+      <connection>scm:git:git@github.com:jh-evans/failure-a.git</connection>
+      <url>https://github.com/jh-evans/failure-a</url>
+  </scm>    
+    <distributionManagement>
+	    <snapshotRepository>
+	        <id>ossrh</id>
+	        <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+	    </snapshotRepository>
+	    <repository>
+	        <id>ossrh</id>
+	        <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+	    </repository>
+	</distributionManagement>
   <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>20.0.1</maven.compiler.source>
-        <maven.compiler.target>20.0.1</maven.compiler.target>
 
         <junit.jupiter.version>5.5.2</junit.jupiter.version>
         <junit.platform.version>1.5.2</junit.platform.version>
-    </properties>
+  </properties>
  <build>
     <plugins>
-        <plugin>
+		
+	    <plugin>
+	      <groupId>org.sonatype.plugins</groupId>
+	      <artifactId>nexus-staging-maven-plugin</artifactId>
+	      <version>1.6.7</version>
+	      <extensions>true</extensions>
+	      <configuration>
+	        <serverId>ossrh</serverId>
+	        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+	        <autoReleaseAfterClose>false</autoReleaseAfterClose>
+	      </configuration>
+	    </plugin>
+	    <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.1</version>
             <configuration>
-                <source>${java.version}</source>
-                <target>${java.version}</target>
-            </configuration>
+	            <source>20</source>
+	            <target>20</target>
+	            <compilerArgs>
+        			<arg>--enable-preview</arg>
+    			</compilerArgs>
+             </configuration>
         </plugin>
         <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -35,9 +81,44 @@
                 <argLine>--enable-preview</argLine>
                 </configuration>
         </plugin>
+        <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-gpg-plugin</artifactId>
+	      <version>1.5</version>
+	      <executions>
+	        <execution>
+	          <id>sign-artifacts</id>
+	          <phase>verify</phase>
+	          <goals>
+	            <goal>sign</goal>
+	          </goals>
+	        </execution>
+	      </executions>
+	    </plugin>
     </plugins>
 </build>
-
+<reporting>
+	<plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.5.0</version>
+            <configuration>
+				<executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+            	</executions>
+				<additionalJOptions>
+					--enable-preview --release 20
+				</additionalJOptions>
+            </configuration>
+        </plugin>
+	</plugins>
+</reporting>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -84,5 +165,48 @@
 		    <scope>test</scope>
 		</dependency>
     </dependencies>
+    
+    <profiles>
+	    <profile>
+	        <id>release</id>
+	        <activation>
+	            <property>
+	                <name>performRelease</name>
+	                <value>true</value>
+	            </property>
+	        </activation>
+	        <build>
+		            <plugins>
+	                <plugin>
+	                    <groupId>org.apache.maven.plugins</groupId>
+	                    <artifactId>maven-gpg-plugin</artifactId>
+	                    <version>1.6</version>
+	                    <executions>
+	                        <execution>
+	                            <id>sign-artifacts</id>
+	                            <phase>verify</phase>
+	                            <goals>
+	                                <goal>sign</goal>
+	                            </goals>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	                <plugin>
+	                    <groupId>org.apache.maven.plugins</groupId>
+	                    <artifactId>maven-source-plugin</artifactId>
+	                    <version>3.2.1</version>
+	                    <executions>
+	                        <execution>
+	                            <id>attach-sources</id>
+	                            <goals>
+	                                <goal>jar-no-fork</goal>
+	                            </goals>
+	                        </execution>
+	                    </executions>
+	                </plugin>
+	            </plugins>
+	        </build>
+	    </profile>
+	</profiles>
     
 </project>

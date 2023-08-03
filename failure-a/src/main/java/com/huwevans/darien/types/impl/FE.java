@@ -1,6 +1,8 @@
 package com.huwevans.darien.types.impl;
 
-public class FE extends Failure {
+import com.huwevans.darien.types.FailureException;
+
+public class FE extends Failure implements FailureException {
 	Exception e;
 	StackTraceElement[] ste;
 	

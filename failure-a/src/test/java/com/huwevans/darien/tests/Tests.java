@@ -12,7 +12,7 @@ import com.huwevans.darien.types.impl.Success;
 
 import java.lang.reflect.Modifier;
 
-class Tests {
+public class Tests {
     @Test
     void success_evaluation_test() {
     	assertTrue(new Success("Test string").eval());

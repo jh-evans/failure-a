@@ -29,19 +29,16 @@ public class Main {
 	
 	public static void main(String[] args) {		
 		Main m = new Main();
-
-		/* This call succeeds, returning an instance of S so eval() will return true
-		 */
 		
-		S idx = m.parse("Hello Worl");
+		S idx = m.parse(null);
+		
 		if(idx.eval()) {
 			int i = (int) idx.unwrap();       // Using generics gets rid of dev having to write this, but increases verbosity
-			System.out.println("i is: " + i); // as generics not used on failure side so lots of redundant typing
+			System.out.println("i is: " + i); // as generics not used on failure side so a lot of redundant typing
 		} else {
 			switch(idx) {
-    			case FV fv -> System.out.println("Failed with fv " + fv.getLocation());
-	    		case FE fe -> System.out.println("Failed with fe " + fe.getException());
-	    		case FAIN fain -> System.out.println("Failed with fain " + fain);
+    			case FailureValue fv -> System.out.println("Failed with fv " + fv.getLocation());
+	    		case FailureArgIsNull fain -> System.out.println("Failed with fain " + fain.getLocation());
 		    	default -> System.out.println("As written, cannot happen");
 			}
 		}
