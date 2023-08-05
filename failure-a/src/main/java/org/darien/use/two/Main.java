@@ -1,4 +1,4 @@
-package org.darien.types.use.two;
+package org.darien.use.two;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class Main {
 			return FailureUtils.theNull(url);
 		}
 		
-	    boolean[] bs = {url.startsWith("https"),url.startsWith("https")};
+	    Boolean[] bs = {url.startsWith("https"),url.startsWith("https")};
 	    
 		if(FailureUtils.oneIsFalse(bs)) {
 			return FailureUtils.theFalse(bs);

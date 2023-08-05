@@ -17,36 +17,46 @@ public class FailureUtils {
 	}
 	
 	public static boolean oneIsNull(Object... args) {
+		if(args == null) {
+			return true;
+		}
 		return oneOf(null, args);
 	}
 	
-	public static boolean oneIsFalse(boolean... args) {
-		for(boolean b : args) {
-			if(b == false) {
-				return true;
-			}
+	public static boolean oneIsFalse(Boolean... args) {
+		if(args == null) {
+			return false;
 		}
 		
-		return false;
+		return oneOf(false, args);
 	}
 	
 	public static FailureArgIsNull theNull(Object... args) {
 		FailureArgIsNull fain = new FAIN();
 		
+		if(args == null) {
+			return fain;
+		}
+		
 		for(int i = 0; i < args.length; i++) {
 			if(args[i] == null) {
-				fain.addNull(i);
+				fain.addIndex(i);
 			}
 		}
 		
 		return fain;
 	}
 	
-	public static FailureArgIsFalse theFalse(boolean... args) {
-		FailureArgIsFalse faif = new FAIF();		
+	public static FailureArgIsFalse theFalse(Boolean... args) {
+		FailureArgIsFalse faif = new FAIF();
+		
+		if(args == null) {
+			return faif;
+		}
+		
 		for(int i = 0; i < args.length; i++) {
 			if(args[i] == false) {
-				faif.addFalse(i);
+				faif.addIndex(i);
 			}
 		}
 		

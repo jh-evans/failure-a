@@ -1,4 +1,4 @@
-package org.darien.types.use.one;
+package org.darien.use.one;
 
 import org.darien.types.*;
 import org.darien.types.impl.*;

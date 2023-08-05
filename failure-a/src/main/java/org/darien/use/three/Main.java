@@ -1,4 +1,4 @@
-package org.darien.types.use.three;
+package org.darien.use.three;
 
 import org.apache.commons.lang3.tuple.*;
 import org.darien.types.*;
