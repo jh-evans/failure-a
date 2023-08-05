@@ -1,11 +1,5 @@
 package org.darien.use.two;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.darien.types.*;
@@ -28,7 +22,10 @@ public class Main {
 			return FailureUtils.theNull(url);
 		}
 		
-	    Boolean[] bs = {url.startsWith("https"),url.startsWith("https")};
+		// I prefer this approach as the list between the {} is evaluated once.
+		// If code was put in between the oneIsFalse call and theFalse
+		// there is the potential for an obscure, hard to find bug
+	    Boolean[] bs = {url.startsWith("https")};
 	    
 		if(FailureUtils.oneIsFalse(bs)) {
 			return FailureUtils.theFalse(bs);

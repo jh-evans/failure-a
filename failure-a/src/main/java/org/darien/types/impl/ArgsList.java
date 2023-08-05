@@ -11,10 +11,17 @@ public class ArgsList extends Failure {
 	
 	public ArgsList() {
 		this.idxs = new ArrayList<Number>();
-		this.ste = new Exception().getStackTrace()[2];
+		this.ste = new Exception().getStackTrace()[3];
 	}
 	
 	public void addIndex(Number idx) {
 		this.idxs.add(idx);
+	}
+	
+	protected String getLocation(Object o) {
+		String msg = "";
+		msg = "Args " + o + " at " + ste.getClassName() + "." + ste.getMethodName() + "(" + ste.getFileName() + ":" + ste.getLineNumber() + ")";
+		msg += " " + o + " in arg " + ((this.idxs.size() == 1) ? "position " : "positions ") + this.idxs;
+		return msg;
 	}
 }
