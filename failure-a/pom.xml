@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.darien-project.failure-a</groupId>
   <artifactId>failure-a</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
     The Darien Project for Java makes handling code failure easy, telling you on which line the failure happene.

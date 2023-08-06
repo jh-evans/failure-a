@@ -99,7 +99,7 @@ public class Tests {
     	assertTrue(faif != null);
     	assertTrue(faif instanceof FAIF);
     	
-    	S obj = TestUtils.getField("org.darien.types.impl.ArgsList", "idxs", faif);
+    	S obj = TestUtils.getField("org.darien.types.impl.ArgsLis", "idxs", faif);
     	
     	if(obj.eval()) {
     		List<Number> idxs = (List<Number>) obj.unwrap();
