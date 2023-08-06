@@ -2,11 +2,11 @@ package org.darien.types.impl;
 
 import org.darien.types.FailureException;
 
-public class FE extends Failure implements FailureException {
+public class FExp extends Failure implements FailureException {
 	Exception e;
 	StackTraceElement[] ste;
 	
-	public FE(Exception e) {
+	public FExp(Exception e) {
 		this.e = e;
 		this.ste = new Exception().getStackTrace();
 	}

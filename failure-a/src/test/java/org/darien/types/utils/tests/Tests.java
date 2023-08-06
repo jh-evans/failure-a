@@ -8,8 +8,13 @@ import java.util.List;
 
 import org.darien.types.FailureArgIsFalse;
 import org.darien.types.FailureArgIsNull;
+import org.darien.types.FailureError;
+import org.darien.types.FailureException;
+import org.darien.types.S;
 import org.darien.types.impl.FAIF;
 import org.darien.types.impl.FAIN;
+import org.darien.types.impl.FErr;
+import org.darien.types.impl.FExp;
 import org.darien.types.utils.FailureUtils;
 import org.junit.jupiter.api.Test;
 public class Tests {
@@ -89,43 +94,25 @@ public class Tests {
     }
 
     @Test
-    void failure_args_two_false_result_test() {
+    void failure_args_two_false_result_test() {    	
     	FailureArgIsFalse faif = FailureUtils.theFalse(new Boolean[] {false, false});
     	assertTrue(faif != null);
     	assertTrue(faif instanceof FAIF);
     	
-    	try {
-    		Class<?> faif_class = Class.forName("org.darien.types.impl.ArgsList");
-    		Field faif_field = faif_class.getDeclaredField("idxs");
-    		faif_field.setAccessible(true);
-    		List<Number> idxs = (List<Number>) faif_field.get(faif); // bytecode is only checking cast to List, type erasure
+    	S obj = TestUtils.getField("org.darien.types.impl.ArgsList", "idxs", faif);
+    	
+    	if(obj.eval()) {
+    		List<Number> idxs = (List<Number>) obj.unwrap();
+
     		assertTrue(idxs.size() == 2);
     		assertTrue((int)idxs.get(0) == 0);
     		assertTrue((int)idxs.get(1) == 1);
-    	} catch(ClassCastException cce) {
-    		assertTrue(false);
-    		return;
-    	} catch(ClassNotFoundException cnfe) {
-    		assertTrue(false);
-    		return;
-    	} catch (NoSuchFieldException e) {
-    		assertTrue(false);
-    		return;
-		} catch (SecurityException e) {
-    		assertTrue(false);
-    		return;
-		} catch (IllegalArgumentException e) {
-    		assertTrue(false);
-    		return;
-		} catch (ExceptionInInitializerError eiie) {
-    		assertTrue(false);
-    		return;
-		} catch (NullPointerException npe) {
-    		assertTrue(false);
-    		return;
-		} catch (IllegalAccessException e) {
-    		assertTrue(false);
-    		return;
-		}
+    	} else {
+            switch (obj) {
+                case FailureError err -> assertTrue(err.getLocation(), false);
+                case FailureException exp -> assertTrue(exp.getLocation(), false);
+                default  -> System.out.println("As currently written, not possible.");
+            }
+    	}
     }
 }

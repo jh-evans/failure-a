@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.darien.types.impl.FAIF;
 import org.darien.types.impl.FAIN;
-import org.darien.types.impl.FE;
+import org.darien.types.impl.FExp;
 import org.darien.types.impl.FPR;
 import org.darien.types.impl.FV;
 import org.darien.types.impl.Success;
@@ -42,7 +42,7 @@ public class Tests {
     
     @Test
     void failure_exception_evaluation_test() {
-    	assertFalse(new FE(new Exception("Test exception")).eval());
+    	assertFalse(new FExp(new Exception("Test exception")).eval());
     }
     
     @Test

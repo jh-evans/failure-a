@@ -45,9 +45,9 @@ public class Main {
 	        }
 	
 	    } catch(java.io.IOException ioe) {
-	            return new FE(ioe);
+	            return new FExp(ioe);
 	    } catch(Exception e) {
-	            return new FE(e);
+	            return new FExp(e);
 	    }
 	}
 
@@ -60,7 +60,7 @@ public static void main(String[] argv) {
         } else {
             switch (page) {
                 case FAIN fain -> System.out.println("fain: " + fain.getLocation());
-                case FE fe -> System.out.println(fe.getException());
+                case FExp fe -> System.out.println(fe.getException());
                 default  -> System.out.println("As currently written, not possible.");
             }
         }
@@ -79,7 +79,7 @@ public static void main(String[] argv) {
                 switch (page) {
                     case FAIN fa -> System.out.println(fa.unwrap());
                     case FV fv -> System.out.println(fv.getValue());
-                    case FE fe -> System.out.println(fe.getException());
+                    case FExp fe -> System.out.println(fe.getException());
                     default  -> System.out.println("As currently written, not possible.");
                 }
         }
@@ -91,7 +91,7 @@ public static void main(String[] argv) {
                 switch (page) {
                     case FAIN fa -> System.out.println(fa.unwrap());
                     case FV fv -> System.out.println(fv.getLocation());
-                    case FE fe -> System.out.println(fe.getException());
+                    case FExp fe -> System.out.println(fe.getException());
                     default  -> System.out.println("As currently written, not possible.");
                 }
         }
@@ -104,7 +104,7 @@ public static void main(String[] argv) {
                     case FAIN fa -> System.out.println(fa.getLocation());
                     case FAIF ff -> System.out.println("ff: " + ff.getLocation());
                     case FV fv -> System.out.println(fv.getLocation());
-                    case FE fe -> System.out.println(fe.getException());
+                    case FExp fe -> System.out.println(fe.getException());
                     default  -> System.out.println("As currently written, not possible.");
                 }
         }

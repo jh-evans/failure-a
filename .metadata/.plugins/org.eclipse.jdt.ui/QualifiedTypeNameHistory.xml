@@ -22,7 +22,6 @@
     <fullyQualifiedTypeName name="com.huwevans.darien.nogenerics.utils.FailureUtils"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.nogeneric.types.FailureInvalidArg"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.types.impl.FailureArgIsNullImpl"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.types.F"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.types.FailurePartialResult"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.types.FailureValue"/>
@@ -30,8 +29,24 @@
     <fullyQualifiedTypeName name="com.huwevans.darien.types.FailureArgIsNull"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.types.FailureArgIsFalse"/>
     <fullyQualifiedTypeName name="com.huwevans.darien.types.impl.FAIF"/>
-    <fullyQualifiedTypeName name="java.util.Arrays"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.function.BinaryOperator"/>
     <fullyQualifiedTypeName name="java.util.function.UnaryOperator"/>
+    <fullyQualifiedTypeName name="java.util.function.Function"/>
+    <fullyQualifiedTypeName name="java.util.Arrays"/>
+    <fullyQualifiedTypeName name="java.util.Random"/>
+    <fullyQualifiedTypeName name="org.darien.types.impl.FPR"/>
+    <fullyQualifiedTypeName name="org.darien.types.utils.FailureUtils"/>
+    <fullyQualifiedTypeName name="org.darien.types.FailureArgIsNull"/>
+    <fullyQualifiedTypeName name="org.darien.types.impl.FAIN"/>
+    <fullyQualifiedTypeName name="java.lang.reflect.Field"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.darien.types.FailureArgIsFalse"/>
+    <fullyQualifiedTypeName name="org.darien.types.impl.FAIF"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="org.darien.types.impl.Success"/>
+    <fullyQualifiedTypeName name="org.darien.types.impl.FE"/>
+    <fullyQualifiedTypeName name="org.darien.types.S"/>
+    <fullyQualifiedTypeName name="org.darien.types.impl.FErr"/>
+    <fullyQualifiedTypeName name="org.darien.types.FailureException"/>
+    <fullyQualifiedTypeName name="org.darien.types.FailureError"/>
 </qualifiedTypeNameHistroy>
