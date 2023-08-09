@@ -1,15 +1,16 @@
-package org.darien.tools.codegen;
+package org.darien.tools.codegen.tests;
 
 import java.lang.reflect.Field;
 
 import org.darien.types.S;
 import org.darien.types.impl.FErr;
 import org.darien.types.impl.FExp;
+import org.darien.types.impl.FPR;
+import org.darien.types.impl.FV;
 import org.darien.types.impl.Success;
 import org.darien.types.utils.FailureUtils;
 
 public class TestCodeGen {
-
 	public static S getField(String cn, String fn, Object inst) {
         if(FailureUtils.oneIsNull(cn, fn, inst)) {
         	return FailureUtils.theNull(cn, fn, inst);
@@ -33,6 +34,14 @@ public class TestCodeGen {
     		return new FExp(npe);
 		} catch (IllegalAccessException iae) {
     		return new FExp(iae);
+		}
+	}
+	
+	public S get(String s) {
+		if(s.length() > 5) {
+			return new Success(s);
+		} else {
+			return new FPR(s);
 		}
 	}
 }

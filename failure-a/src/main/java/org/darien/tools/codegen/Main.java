@@ -28,7 +28,7 @@ public class Main {
 	public static void main(String[] args) {
 		if(args.length < 1 || args.length > 2) {
 			System.out.println("org.darien.tools.codegen.Main [-debug] <Java classname>");
-			System.out.println("The classname must be of the form java.lang.String");
+			System.out.println("The classname must be fully qualified with the entire package name including the classname, e.g., java.lang.String");
 			System.exit(99);
 		}
 		
@@ -113,8 +113,7 @@ public class Main {
 					imports.add("import " + m.getReturnType().getCanonicalName());
 					
 					String code = "";
-					code += simpleType(m.getReturnType().getCanonicalName());
-					code += " obj = " + getMethodCall(m) + "();" + "\n";
+					code += simpleType(m.getReturnType().getCanonicalName()) + " obj = " + getMethodCall(m) + "();" + "\n";
 					code += "\n";
 					code += "if(obj.eval()) {" + "\n";
 					code += "    " + "Object unwrapped = obj.unwrap();" + "\n";
@@ -122,7 +121,7 @@ public class Main {
 					code += "    switch(obj) {" + "\n";
 					
 					for(ReturnInvocation reti : rets) {
-						imports.add("import " + reti.type);
+						imports.add("import " + (!reti.method_return_type.equals("V") ? reti.method_return_type : reti.type));
 						String stn = reti.simpleTypeName();
 						code += "        case " + stn + " " + varFromSimpleType(stn) + " ->" + "\n";
 					}
