@@ -1,4 +1,4 @@
-package org.darien.types.utils.tests;
+package org.darien.tools.codegen;
 
 import java.lang.reflect.Field;
 
@@ -8,7 +8,7 @@ import org.darien.types.impl.FExp;
 import org.darien.types.impl.Success;
 import org.darien.types.utils.FailureUtils;
 
-public class TestUtils {
+public class TestCodeGen {
 
 	public static S getField(String cn, String fn, Object inst) {
         if(FailureUtils.oneIsNull(cn, fn, inst)) {

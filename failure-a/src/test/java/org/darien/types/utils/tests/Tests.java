@@ -54,43 +54,26 @@ public class Tests {
 
     @Test
     void failure_args_two_nulls_result_test() {
-    	FailureArgIsNull fain = FailureUtils.theNull(new Object[] {null, null});
-    	assertTrue(fain != null);
-    	assertTrue(fain instanceof FAIN);
+    	FailureArgIsNull fain_r = FailureUtils.theNull(new Object[] {null, null});
+    	assertTrue(fain_r != null);
+    	assertTrue(fain_r instanceof FAIN);
     	
-    	try {
-    		Class<?> fain_class = Class.forName("org.darien.types.impl.ArgsList");
-    		Field fain_field = fain_class.getDeclaredField("idxs");
-    		fain_field.setAccessible(true);
-    		List<Number> idxs = (List<Number>) fain_field.get(fain); // bytecode is only checking cast to List, type erasure
+    	S obj = TestUtils.getField("org.darien.types.impl.ArgsList", "idxs", fain_r);
+    	
+    	if(obj.eval()) {
+    		List<Number> idxs = (List<Number>) obj.unwrap();
+
     		assertTrue(idxs.size() == 2);
     		assertTrue((int)idxs.get(0) == 0);
     		assertTrue((int)idxs.get(1) == 1);
-    	} catch(ClassCastException cce) {
-    		assertTrue(false);
-    		return;
-    	} catch(ClassNotFoundException cnfe) {
-    		assertTrue(false);
-    		return;
-    	} catch (NoSuchFieldException e) {
-    		assertTrue(false);
-    		return;
-		} catch (SecurityException e) {
-    		assertTrue(false);
-    		return;
-		} catch (IllegalArgumentException e) {
-    		assertTrue(false);
-    		return;
-		} catch (ExceptionInInitializerError eiie) {
-    		assertTrue(false);
-    		return;
-		} catch (NullPointerException npe) {
-    		assertTrue(false);
-    		return;
-		} catch (IllegalAccessException e) {
-    		assertTrue(false);
-    		return;
-		}
+    	} else {
+            switch (obj) {
+                case FailureError fe -> assertTrue(fe.getLocation(), false);
+                case FailureException fe -> assertTrue(fe.getLocation(), false);
+                case FailureArgIsNull fain -> assertTrue(fain.getLocation(), false);
+                default  -> System.out.println("As currently written, not possible.");
+            }
+    	}
     }
 
     @Test
@@ -99,7 +82,7 @@ public class Tests {
     	assertTrue(faif != null);
     	assertTrue(faif instanceof FAIF);
     	
-    	S obj = TestUtils.getField("org.darien.types.impl.ArgsLis", "idxs", faif);
+    	S obj = TestUtils.getField("org.darien.types.impl.ArgsList", "idxs", faif);
     	
     	if(obj.eval()) {
     		List<Number> idxs = (List<Number>) obj.unwrap();
@@ -111,6 +94,7 @@ public class Tests {
             switch (obj) {
                 case FailureError err -> assertTrue(err.getLocation(), false);
                 case FailureException exp -> assertTrue(exp.getLocation(), false);
+                case FailureArgIsNull fain -> assertTrue(fain.getLocation(), false);
                 default  -> System.out.println("As currently written, not possible.");
             }
     	}
