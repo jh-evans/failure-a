@@ -37,6 +37,7 @@ public class TestCodeGen {
 		}
 	}
 	
+	/*
 	public S get(String s) {
 		if(s.length() > 5) {
 			return new Success(s);
@@ -44,4 +45,5 @@ public class TestCodeGen {
 			return new FPR(s);
 		}
 	}
+	*/
 }

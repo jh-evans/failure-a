@@ -51,7 +51,12 @@ public class ReturnInvocation {
 			if(method_return_type.contains(".")) {
 				String[] components = method_return_type.split("\\.");
 				String str = components[components.length - 1];
-				return str.substring(0, str.length() - 1);
+				
+				if(str.endsWith(";")) {
+					return str.substring(0, str.length() - 1);
+				} else {
+					return str;
+				}
 			} else {
 				return type;
 			}

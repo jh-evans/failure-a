@@ -10,15 +10,8 @@ public class CodeGen {
 	private CodeNode root;
 	private CodeNode current_child;
 	
-	private String return_type;
 	private String method_name;
-	private String if_statement;
-	private String success_block;
-	private String else_statement;
-	private String failure_block;
 	private List<String> case_stmts;
-	private String close_case;
-	private String close_failure_block;
 
 	private List<String> imports;
 	
@@ -38,8 +31,6 @@ public class CodeGen {
 		CodeNode child = new CodeNode(" ");
 		rt.addChild(child);
 		this.current_child = child;
-		
-		this.return_type = simpleType(m.getReturnType().getCanonicalName());
 	}
 
 	
@@ -69,11 +60,7 @@ public class CodeGen {
 		return typename.replace("org.darien.types.", "");
 	}
 	
-	public CodeNode addSuccessPath() {
-		this.if_statement = "if(obj.eval()) {" + "\n";
-		this.success_block = "    Object unwrapped = obj.unwrap();" + "\n";
-		this.else_statement = "} else {" + "\n";
-		
+	public CodeNode addSuccessPath() {		
 		IfStatement if_statement = new IfStatement("obj.eval()");
 		current_child.addChild(if_statement);
 		
@@ -102,8 +89,6 @@ public class CodeGen {
 		s.addChild(ecb);
 		
 		current_child = ecb;
-		
-		this.failure_block = "    switch(obj) {" + "\n";
 	}
 	
 	public void addCaseStatement(ReturnInvocation reti) {
@@ -136,34 +121,29 @@ public class CodeGen {
 		((CodeBlock) current_child).closeCodeBlock();
 	}
 	
-	public void closeCase() {
-		this.close_case = "    }" + "\n";
-	}
-	
-	public void closeFailurePath() {
-		this.close_failure_block = "}";
-	}
-	
-	public List<String> getImports() {		
+	public List<String> getImports() {
 		Collections.sort(this.imports);
 		Collections.reverse(this.imports);
 		return this.imports;
 	}
-	
-	public String toString() {		
-		String code = return_type + " " + method_name + "\n";
-		code += this.if_statement;
-		code += this.success_block;
-		code += this.else_statement;
-		code += this.failure_block;
-		
-		for(String s : this.case_stmts) {
-			code += s;
+
+	public CodeNode getObj(String v, CodeNode node) {
+		//System.out.println("<" + node.getCode() + "," + v + ":" + (node.getCode().equals(v) ? " true" : " false"));
+		if(node.getCode().equals(v)) {
+			return node;
+		} else {
+			for(CodeNode n : node.children) {
+				CodeNode r = getObj(v, n);
+				if(r.getCode().equals(v)) {
+					return r;
+				}
+			}
 		}
 		
-		code += this.close_case;
-		code += this.close_failure_block;
-		
-		return code;
+		return new CodeNode(v + " not found");
+	}
+	
+	public String toString() {
+		return root.toString();
 	}
 }

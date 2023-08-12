@@ -7,13 +7,6 @@ public class CodeNode {
 	protected String code;
 	protected List<CodeNode> children;
 
-	public final static CodeNode space = new CodeNode(" ");
-	public final static CodeNode nl = new CodeNode("\n");
-	public final static CodeNode oc = new CodeNode("{");
-	public final static CodeNode cc = new CodeNode("}");
-	public final static CodeNode op = new CodeNode("(");
-	public final static CodeNode cp = new CodeNode(")");
-
 	public CodeNode() {
 		this.code = "";
 		this.children = new ArrayList<CodeNode>();
@@ -26,6 +19,10 @@ public class CodeNode {
 	
 	public void addChild(CodeNode node) {
 		this.children.add(node);
+	}
+	
+	public String getCode() {
+		return this.code;
 	}
 	
 	public String toString() {

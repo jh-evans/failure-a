@@ -99,13 +99,15 @@ public class Main {
 					}
 					
 					cg.addDefaultCase();
-					cg.closeCase();
-					cg.closeFailurePath();
 
 					bytes.close();
 
 					((CodeBlock) cn).closeCodeBlock();
-					System.out.println("Root: <"+ cg.getRoot() + ">");
+
+					if(debug_on) {
+						System.out.println("Code: " + cg);
+					}
+					
 					return cg;
 				}
 			}
@@ -120,7 +122,7 @@ public class Main {
     		System.exit(103);
 		}
 		
-		return null;
+		return new CodeGen();
 	}
 	
 	public static void main(String[] args) {
