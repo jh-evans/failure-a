@@ -8,12 +8,16 @@ import org.darien.tools.codegen.CodeNode;
 import org.darien.tools.codegen.Main;
 
 public class Tests {
+	private CodeGen cg;
 	
 	CodeNode find(String s) {
-    	Main m = new Main();
-    	CodeGen cg = m.generate("org.darien.tools.codegen.tests.TestCodeGen", true);
+		if(this.cg == null) {
+			Main m = new Main();
+			this.cg = m.generate("org.darien.tools.codegen.tests.TestCodeGen", true);
+		}
 
-    	return cg.getObj(s, cg.getRoot());
+		System.out.println(cg.getRoot());
+		return cg.getObj(s, cg.getRoot());
 	}
 
     @Test
@@ -36,7 +40,7 @@ public class Tests {
 
     @Test
     void find_obj_unwrap() {
-    	String obj_unwrap = "    Object unwrapped = obj.unwrap();";
+    	String obj_unwrap = "Object unwrapped = obj.unwrap();";
     	assertTrue(find(obj_unwrap).getCode().equals(obj_unwrap));
     }
 
@@ -54,25 +58,25 @@ public class Tests {
 
     @Test
     void find_case_ferr() {
-    	String ferr = "        case FErr fe ->";
+    	String ferr = "case FErr fe ->";
     	assertTrue(find(ferr).getCode().equals(ferr));
     }
 
     @Test
     void find_case_fexp() {
-    	String fexp = "        case FExp fe ->";
+    	String fexp = "case FExp fe ->";
     	assertTrue(find(fexp).getCode().equals(fexp));
     }
     
     @Test
     void find_case_fain() {
-    	String fain = "        case FailureArgIsNull fain ->";
+    	String fain = "case FailureArgIsNull fain ->";
     	assertTrue(find(fain).getCode().equals(fain));
     }
     
     @Test
     void find_default_case() {
-    	String def = "        default ->";
+    	String def = "default ->";
     	assertTrue(find(def).getCode().equals(def));
     }
 }

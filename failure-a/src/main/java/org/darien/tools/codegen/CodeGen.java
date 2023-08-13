@@ -65,7 +65,7 @@ public class CodeGen {
 		current_child.addChild(if_statement);
 		
 		CodeBlock icb = new CodeBlock();
-		icb.addChild(new CodeNode("    Object unwrapped = obj.unwrap();"));
+		icb.addChild(new CodeNode("Object unwrapped = obj.unwrap();"));
 		icb.closeCodeBlock();
 		if_statement.addChild(icb);
 		
@@ -94,9 +94,9 @@ public class CodeGen {
 	public void addCaseStatement(ReturnInvocation reti) {
 		addImport((!reti.method_return_type.equals("V") ? reti.method_return_type : reti.type));
 		String stn = reti.simpleTypeName();
-		this.case_stmts.add("        case " + stn + " " + varFromSimpleType(stn) + " ->" + "\n");
+		this.case_stmts.add("case " + stn + " " + varFromSimpleType(stn) + " ->" + "\n");
 		
-		CodeNode case_line = new CodeNode("        case " + stn + " " + varFromSimpleType(stn) + " ->");
+		CodeNode case_line = new CodeNode("case " + stn + " " + varFromSimpleType(stn) + " ->");
 		case_line.addChild(new CodeNode("\n"));
 		
 		current_child.addChild(case_line);
@@ -114,10 +114,10 @@ public class CodeGen {
 	}
 	
 	public void addDefaultCase() {
-		this.case_stmts.add("        default ->" + "\n");
+		this.case_stmts.add("default ->" + "\n");
 		
-		// in addCaseStatement, current_child is a CodeBlcok so this works, but not a good idea
-		current_child.addChild(new CodeNode("        default ->"));
+		// in addCaseStatement, current_child is a CodeBlcok so cast works, but not a good idea
+		current_child.addChild(new CodeNode("default ->"));
 		((CodeBlock) current_child).closeCodeBlock();
 	}
 	

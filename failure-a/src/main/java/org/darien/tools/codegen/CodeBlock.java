@@ -1,12 +1,7 @@
 package org.darien.tools.codegen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CodeBlock extends CodeNode {
 	public CodeBlock() {
-		this.children.add(new CodeNode("{"));
-		this.children.add(new CodeNode("\n"));
 	}
 	
 	public void addChild(CodeNode node) {
@@ -14,7 +9,21 @@ public class CodeBlock extends CodeNode {
 	}
 	
 	public void closeCodeBlock() {
-		this.children.add(new CodeNode("\n"));
-		this.children.add(new CodeNode("}"));
+	}
+	
+	public String toString() {
+		String result = " {\n";
+
+		CodeNode.cbc += 4;
+		result += code;
+		
+		for(CodeNode node : this.children) {
+			result = result + spaces() + node;
+		}
+		
+		CodeNode.cbc -= 4;
+		result += "\n" + spaces() + "}";
+		
+		return result;
 	}
 }
