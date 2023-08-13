@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CodeNode {
-	public static int cbc;
+	private static int cbc;
 	protected String code;
 	protected List<CodeNode> children;
+	
+	static {
+		CodeNode.cbc = 0;
+	}
 
 	public CodeNode() {
-		this.cbc = 0;
 		this.code = "";
 		this.children = new ArrayList<CodeNode>();
 	}
@@ -19,16 +22,16 @@ public class CodeNode {
 		this.code = code;
 	}
 	
+	public static void setSpaces(int spacesOffset) {
+		CodeNode.cbc += spacesOffset;
+	}
+	
 	public void addChild(CodeNode node) {
 		this.children.add(node);
 	}
 	
 	public String getCode() {
 		return this.code;
-	}
-	
-	public static void cbc(int cbc) {
-		CodeNode.cbc = cbc;
 	}
 	
     public String spaces() {

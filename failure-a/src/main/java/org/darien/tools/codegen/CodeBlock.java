@@ -1,7 +1,10 @@
 package org.darien.tools.codegen;
 
 public class CodeBlock extends CodeNode {
+	int numberSpaces;
+	
 	public CodeBlock() {
+		this.numberSpaces = 4;
 	}
 	
 	public void addChild(CodeNode node) {
@@ -14,14 +17,14 @@ public class CodeBlock extends CodeNode {
 	public String toString() {
 		String result = " {\n";
 
-		CodeNode.cbc += 4;
 		result += code;
-		
+
+		CodeNode.setSpaces(this.numberSpaces);
 		for(CodeNode node : this.children) {
 			result = result + spaces() + node;
 		}
+		CodeNode.setSpaces(-this.numberSpaces);
 		
-		CodeNode.cbc -= 4;
 		result += "\n" + spaces() + "}";
 		
 		return result;
