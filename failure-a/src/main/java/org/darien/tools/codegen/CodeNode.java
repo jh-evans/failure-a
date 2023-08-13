@@ -22,7 +22,7 @@ public class CodeNode {
 		this.code = code;
 	}
 	
-	public static void setSpaces(int spacesOffset) {
+	public static void addSpaces(int spacesOffset) {
 		CodeNode.cbc += spacesOffset;
 	}
 	
@@ -35,10 +35,10 @@ public class CodeNode {
 	}
 	
     public String spaces() {
-    	if(cbc == 0) {
+    	if(CodeNode.cbc == 0) {
     		return "";
     	}
-    	return String.format("%" + cbc + "s", ""); 
+    	return String.format("%" + CodeNode.cbc + "s", ""); 
     }
 	
 	public String toString() {

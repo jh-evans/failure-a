@@ -13,10 +13,9 @@ public class Tests {
 	CodeNode find(String s) {
 		if(this.cg == null) {
 			Main m = new Main();
-			this.cg = m.generate("org.darien.tools.codegen.tests.TestCodeGen", true);
+			this.cg = m.generate("org.darien.tools.codegen.tests.TestCodeGen", false);
 		}
 
-		System.out.println(cg.getRoot());
 		return cg.getObj(s, cg.getRoot());
 	}
 

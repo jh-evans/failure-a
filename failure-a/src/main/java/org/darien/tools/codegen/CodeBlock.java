@@ -19,11 +19,11 @@ public class CodeBlock extends CodeNode {
 
 		result += code;
 
-		CodeNode.setSpaces(this.numberSpaces);
+		CodeNode.addSpaces(this.numberSpaces);
 		for(CodeNode node : this.children) {
 			result = result + spaces() + node;
 		}
-		CodeNode.setSpaces(-this.numberSpaces);
+		CodeNode.addSpaces(-this.numberSpaces);
 		
 		result += "\n" + spaces() + "}";
 		
