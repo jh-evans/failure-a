@@ -1,149 +1,160 @@
 package org.darien.tools.codegen;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.bcel.Const;
+import org.apache.bcel.Repository;
+import org.apache.bcel.classfile.Constant;
+import org.apache.bcel.classfile.ConstantCP;
+import org.apache.bcel.classfile.ConstantClass;
+import org.apache.bcel.classfile.ConstantPool;
+import org.apache.bcel.classfile.ConstantUtf8;
+import org.apache.bcel.classfile.JavaClass;
+import org.apache.bcel.util.ByteSequence;
 
 public class CodeGen {
-	private CodeNode root;
-	private CodeNode current_child;
-	
-	private String method_name;
-	private List<String> case_stmts;
+	public CodeGenerator generate(String classname, Map<String, Boolean> args) {
+		boolean debug_on = false;
+		boolean outputcode = false;
 
-	private List<String> imports;
-	
-	public CodeGen() {
-		this.root = new CodeNode();
-		this.case_stmts = new ArrayList<String>();
-		this.imports = new ArrayList<String>();
-	}
-	
-	public CodeNode getRoot() {
-		return this.root;
-	}
-	
-	public void setSimpleType(Method m) {
-		CodeNode rt = new CodeNode(simpleType(m.getReturnType().getCanonicalName()));
-		root.addChild(rt);
-		CodeNode child = new CodeNode(" ");
-		rt.addChild(child);
-		this.current_child = child;
-	}
-
-	
-	public void setMethodCall(Method m) {		
-		if(Modifier.isStatic(m.getModifiers())) {
-			String name =  m.getDeclaringClass().getCanonicalName();
-			String[] name_components = name.split("\\.");
-			this.method_name = name_components[name_components.length - 1] + "." + m.getName();
-		} else {
-			this.method_name = m.getName();
+		if(args.containsKey("debug")) {
+			debug_on = args.get("debug");
 		}
 		
-		CodeNode child = new CodeNode("obj");
-		child.addChild(new CodeNode(" "));
-		CodeNode assignment = new CodeNode("=");
-		assignment.addChild(new CodeNode(" "));
-		CodeNode method_invoke = new CodeNode(this.method_name);
-		method_invoke.addChild(new CodeNode("();"));
-		child.addChild(assignment);
-		assignment.addChild(method_invoke);
+		if(args.containsKey("outputcode")) {
+			outputcode = args.get("outputcode");
+		}
 		
-		this.current_child.addChild(child);
-		this.current_child = method_invoke;
-	}
-	
-	private String simpleType(String typename) {
-		return typename.replace("org.darien.types.", "");
-	}
-	
-	public CodeNode addSuccessPath() {		
-		IfStatement if_statement = new IfStatement("obj.eval()");
-		current_child.addChild(if_statement);
-		
-		CodeBlock icb = new CodeBlock();
-		icb.addChild(new CodeNode("Object unwrapped = obj.unwrap();"));
-		icb.closeCodeBlock();
-		if_statement.addChild(icb);
-		
-		ElseStatement es = new ElseStatement();
-
-		CodeBlock ecb = new CodeBlock();
-		es.addChild(ecb);
-		
-        if_statement.addChild(es);
-		
-		current_child = ecb;
-		
-		return current_child;
-	}
-	
-	public void openFailurePath() {
-		Switch s = new Switch();
-		current_child.addChild(s);
-		
-		CodeBlock ecb = new CodeBlock();
-		s.addChild(ecb);
-		
-		current_child = ecb;
-	}
-	
-	public void addCaseStatement(ReturnInvocation reti) {
-		addImport((!reti.method_return_type.equals("V") ? reti.method_return_type : reti.type));
-		String stn = reti.simpleTypeName();
-		this.case_stmts.add("case " + stn + " " + varFromSimpleType(stn) + " ->" + "\n");
-		
-		CodeNode case_line = new CodeNode("case " + stn + " " + varFromSimpleType(stn) + " ->");
-		case_line.addChild(new CodeNode("\n"));
-		
-		current_child.addChild(case_line);
-	}
-	
-	public void addImport(String type) {
-		imports.add("import " + type);
-	}
-	
-	private String varFromSimpleType(String stn) {
-		return stn.chars().filter(Character::isUpperCase)
-				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-				.toString()
-				.toLowerCase();
-	}
-	
-	public void addDefaultCase() {
-		this.case_stmts.add("default ->" + "\n");
-		
-		// in addCaseStatement, current_child is a CodeBlcok so cast works, but not a good idea
-		current_child.addChild(new CodeNode("default ->"));
-		((CodeBlock) current_child).closeCodeBlock();
-	}
-	
-	public List<String> getImports() {
-		Collections.sort(this.imports);
-		Collections.reverse(this.imports);
-		return this.imports;
-	}
-
-	public CodeNode getObj(String v, CodeNode node) {
-		//System.out.println("<" + node.getCode() + "," + v + ":" + (node.getCode().equals(v) ? " true" : " false"));
-		if(node.getCode().equals(v)) {
-			return node;
-		} else {
-			for(CodeNode n : node.children) {
-				CodeNode r = getObj(v, n);
-				if(r.getCode().equals(v)) {
-					return r;
-				}
+		if(debug_on) {
+			System.out.println("Looking for this class: " + classname);
+			System.out.println("Searching this classpath");
+			for(String dir : System.getProperty("java.class.path").split(";")) {
+				System.out.println("  " + dir);
 			}
 		}
 		
-		return new CodeNode(v + " not found");
+		CodeGenClassLoader ldr = new CodeGenClassLoader();
+
+		Class<?> cls = null;
+		
+		try {
+			cls = ldr.loadClass(classname, true);
+		}
+		catch(ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+			System.exit(100);
+		}
+		
+		try {
+			Method[] dmethods = cls.getDeclaredMethods();
+			for(Method m : dmethods) {
+				if(m.getReturnType().getName().equals("org.darien.types.S")) {
+					if(debug_on) {
+						System.out.println("Found method: " + m);
+					}
+					
+					JavaClass jc = Repository.lookupClass(cls);
+					org.apache.bcel.classfile.Method bcel_m = jc.getMethod(m);
+					ConstantPool cp = bcel_m.getConstantPool();
+					ByteSequence bytes = new ByteSequence(bcel_m.getCode().getCode());
+					ReturnInvocation ri = null;
+					Set<ReturnInvocation> rets = new HashSet<ReturnInvocation>();
+					
+					while(bytes.available() > 0) {
+						short opcode = (short) bytes.readUnsignedByte();
+						
+						switch(opcode) {
+						    case Const.ARETURN:
+						    	if(debug_on) {
+						    		System.out.println("Found return instruction: " + ri);
+						    	}
+						    	if(!ri.isSuccessType(org.darien.types.impl.Success.class)) {
+						    		rets.add(ri);
+						    	}
+						    	break;
+							case Const.INVOKESPECIAL:
+							case Const.INVOKESTATIC:
+									int index = bytes.readUnsignedShort();
+									Constant c = cp.getConstant(index);
+									Constant cmf = cp.getConstant(((ConstantCP) c).getClassIndex(), Const.CONSTANT_Class);
+									int idx = ((ConstantClass) cmf).getNameIndex();
+									ConstantUtf8 constantutf8 = cp.getConstantUtf8(idx);
+									
+									ri = new ReturnInvocation(constantutf8.getBytes(), cp.constantToString(((ConstantCP) c).getNameAndTypeIndex(), Const.CONSTANT_NameAndType));									
+						            
+									break;
+						}
+					}
+			
+					if(debug_on) {
+						for(ReturnInvocation ret_i : rets) {
+							System.out.println(ret_i);
+						}
+					}
+
+					CodeGenerator cg = new CodeGenerator(args);
+					
+					cg.addImport(m.getReturnType().getCanonicalName());
+					cg.setSimpleType(m);
+					cg.setMethodCall(m);
+
+					String varname = cg.addSuccessPath(rets);
+
+					bytes.close();
+
+					if(outputcode) {
+						System.out.println(cg);
+					}
+					
+					return cg;
+				}
+			}
+		} catch(IOException ioe) {
+    		ioe.printStackTrace();
+    		System.exit(101);
+		} catch(SecurityException se) {
+    		se.printStackTrace();
+    		System.exit(102);
+		} catch (ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+    		System.exit(103);
+		}
+		
+		return new CodeGenerator(args);
 	}
 	
-	public String toString() {
-		return root.toString();
+	public static void main(String[] args) {
+		if(args.length < 1 || args.length > 2) {
+			System.out.println("org.darien.tools.codegen.Main [-debug] <Java classname>");
+			System.out.println("The classname must be fully qualified with the entire package name including the classname, e.g., java.lang.String");
+			System.exit(99);
+		}
+		
+		CodeGen m = new CodeGen();
+
+		var arguments = new HashMap<String, Boolean>();
+		
+		for(int i = 0; i < args.length; i++) {
+			if(args[i].equals("-debug")) {
+				arguments.put("debug", true);
+			}
+			
+			if(args[i].equals("-pre17")) {
+				arguments.put("pre17", true);
+			}
+			
+			if(args[i].equals("-typecheckmethod")) {
+				arguments.put("typecheckmethod", true);
+			}
+
+			}
+		
+
+		m.generate(args[1], arguments);
 	}
 }

@@ -32,7 +32,7 @@ public class FailureUtils {
 	}
 	
 	public static FailureArgIsNull theNull(Object... args) {
-		FailureArgIsNull fain = new FAIN();
+		FAIN fain = new FAIN();
 		
 		if(args == null) {
 			return fain;

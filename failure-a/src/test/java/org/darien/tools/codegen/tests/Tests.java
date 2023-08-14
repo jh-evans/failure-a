@@ -1,19 +1,30 @@
 package org.darien.tools.codegen.tests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.Test;
-import org.darien.tools.codegen.CodeGen;
+import org.darien.tools.codegen.CodeGenerator;
 import org.darien.tools.codegen.CodeNode;
-import org.darien.tools.codegen.Main;
+import org.darien.tools.codegen.CodeGen;
+import org.darien.types.S;
+import org.darien.types.FailureArgIsNull;
+import org.darien.types.impl.FAIF;
+import org.darien.types.impl.FErr;
+import org.darien.types.impl.FExp;
 
 public class Tests {
-	private CodeGen cg;
+	private CodeGenerator cg;
 	
 	CodeNode find(String s) {
 		if(this.cg == null) {
-			Main m = new Main();
-			this.cg = m.generate("org.darien.tools.codegen.tests.TestCodeGen", false);
+			CodeGen codegen = new CodeGen();
+			var args = new HashMap<String, Boolean>();
+			args.put("pre17", false);
+			args.put("outputcode", true);
+			this.cg = codegen.generate("org.darien.tools.codegen.tests.TestCodeGen", args);
 		}
 
 		return cg.getObj(s, cg.getRoot());
@@ -75,7 +86,81 @@ public class Tests {
     
     @Test
     void find_default_case() {
-    	String def = "default ->";
+    	String def = "default -> {}";
     	assertTrue(find(def).getCode().equals(def));
+    }
+    
+    @Test
+    void call_getField_success() {
+    	FAIF faif = new FAIF();
+    	S obj = TestCodeGen.getField("org.darien.types.impl.ArgsList", "idxs", faif);
+    	
+    	if(obj.eval()) {
+    	    Object unwrapped = obj.unwrap();
+    	    assertTrue(unwrapped instanceof Object);
+    	} else {
+    	    switch(obj) {
+    	        case FailureArgIsNull fain -> assertTrue(fain.getLocation(), false);
+    	        case FExp fe -> assertTrue(fe.getLocation(), false);
+    	        case FErr fe -> assertTrue(fe.getLocation(), false);
+    	        default -> assertTrue(false);
+    	    }
+    	}
+    }
+    
+    @Test
+    void call_getField_classname_wrong() {
+    	FAIF faif = new FAIF();
+    	String cn = "org.darien.types.impl.ArgsLis";
+    	S obj = TestCodeGen.getField(cn, "idxs", faif);
+    	
+    	if(obj.eval()) {
+    	    Object unwrapped = obj.unwrap();
+    	    assertTrue(unwrapped instanceof Object);
+    	} else {
+    	    switch(obj) {
+    	        case FailureArgIsNull fain -> assertTrue(fain.getLocation(), false);
+    	        case FExp fe -> assertTrue(fe.getException().getMessage().equals(cn));
+    	        case FErr fe -> assertTrue(fe.getLocation(), false);
+    	        default -> assertTrue(false);
+    	    }
+    	}
+    }
+    
+    @Test
+    void call_getField_fieldname_wrong() {
+    	FAIF faif = new FAIF();
+    	String mn = "idx";
+    	S obj = TestCodeGen.getField("org.darien.types.impl.ArgsList", mn, faif);
+    	
+    	if(obj.eval()) {
+    	    Object unwrapped = obj.unwrap();
+    	    assertTrue(unwrapped instanceof Object);
+    	} else {
+    	    switch(obj) {
+    	        case FailureArgIsNull fain -> assertTrue(fain.getLocation(), false);
+    	        case FExp fe -> assertTrue(fe.getException().getMessage().equals(mn));
+    	        case FErr fe -> assertTrue(fe.getLocation(), false);
+    	        default -> assertTrue(false);
+    	    }
+    	}
+    }
+    
+    @Test
+    void call_getField_instance_wrong() {
+    	String mn = "idx";
+    	S obj = TestCodeGen.getField("org.darien.types.impl.ArgsList", mn, null);
+    	
+    	if(obj.eval()) {
+    	    Object unwrapped = obj.unwrap();
+    	    assertTrue(unwrapped instanceof Object);
+    	} else {
+    	    switch(obj) {
+    	        case FailureArgIsNull fain -> assertEquals(fain.getIndices().get(0), 2);
+    	        case FExp fe -> assertTrue(fe.getLocation(), false);
+    	        case FErr fe -> assertTrue(fe.getLocation(), false);
+    	        default -> assertTrue(false);
+    	    }
+    	}
     }
 }

@@ -1,5 +1,7 @@
 package org.darien.types.impl;
 
+import java.util.List;
+
 import org.darien.types.FailureArgIsNull;
 
 /**
@@ -15,5 +17,9 @@ public class FAIN extends ArgsList implements FailureArgIsNull {
 	 */
 	public String getLocation() {
 		return super.getLocation(null);
+	}
+
+	public List<Number> getIndices() {
+		return this.idxs;
 	}
 }

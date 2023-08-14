@@ -1,9 +1,9 @@
 package org.darien.tools.codegen;
 
-public class CodeBlock extends CodeNode {
+public class ElseBlock extends CodeNode {
 	int numberSpaces;
 	
-	public CodeBlock() {
+	public ElseBlock() {
 		this.numberSpaces = 4;
 	}
 	
@@ -15,7 +15,7 @@ public class CodeBlock extends CodeNode {
 	}
 	
 	public String toString() {
-		String result = " {\n";
+		String result = "{\n";
 
 		result += code;
 
@@ -25,7 +25,7 @@ public class CodeBlock extends CodeNode {
 		}
 		CodeNode.addSpaces(-this.numberSpaces);
 		
-		result += "\n" + spaces() + "}";
+		result += spaces() + "}\n";
 		
 		return result;
 	}
