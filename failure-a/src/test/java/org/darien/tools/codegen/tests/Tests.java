@@ -22,8 +22,9 @@ public class Tests {
 		if(this.cg == null) {
 			CodeGen codegen = new CodeGen();
 			var args = new HashMap<String, Boolean>();
-			args.put("pre17", false);
+			args.put("pre17", true);
 			args.put("outputcode", true);
+			args.put("outputimports", true);
 			this.cg = codegen.generate("org.darien.tools.codegen.tests.TestCodeGen", args);
 		}
 

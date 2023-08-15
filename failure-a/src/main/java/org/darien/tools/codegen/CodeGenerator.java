@@ -87,24 +87,7 @@ public class CodeGenerator {
 		if_else_statement.getIfBlock().addChild(new CodeNode("Object unwrapped = obj.unwrap();"));
 		if_else_statement.getIfBlock().addChild(new CodeNode("\n"));
 		
-		if(!pre17) {
-			Switch s = new Switch("obj");
-			if_else_statement.getElseBlock().addChild(s);
-			
-			CodeNode ifb = new SwitchBlock();
-			s.addChild(ifb);
-			
-			for(ReturnInvocation reti : rets) {
-				addTypedCaseStatement(ifb, reti);
-			}
-
-			current_child = ifb;
-			
-			current_child.addChild(new CodeNode("default -> {System.out.println(\"You should not see this\");}"));
-			current_child.addChild(new CodeNode("\n"));
-			
-            return "obj";
-		} else {
+		if(pre17) {
 			ReturnInvocation[] r = rets.toArray(new ReturnInvocation[rets.size()]);
 			if_else_statement.getElseBlock().addChild(new IntegerInitialisation("i", r.length));	
 			
@@ -139,6 +122,23 @@ public class CodeGenerator {
 			current_child.addChild(new CodeNode("\n"));
 			
 			return "i";
+		} else {
+			Switch s = new Switch("obj");
+			if_else_statement.getElseBlock().addChild(s);
+			
+			CodeNode ifb = new SwitchBlock();
+			s.addChild(ifb);
+			
+			for(ReturnInvocation reti : rets) {
+				addTypedCaseStatement(ifb, reti);
+			}
+
+			current_child = ifb;
+			
+			current_child.addChild(new CodeNode("default -> {System.out.println(\"You should not see this\");}"));
+			current_child.addChild(new CodeNode("\n"));
+			
+            return "obj";
 		}
 	}
 
@@ -163,7 +163,7 @@ public class CodeGenerator {
 	}
 	
 	public void addImport(String type) {
-		imports.add("import " + type);
+		imports.add("import " + type + ";");
 	}
 	
 	private String varFromSimpleType(String stn) {

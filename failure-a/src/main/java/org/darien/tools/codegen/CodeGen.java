@@ -55,7 +55,7 @@ public class CodeGen {
 			for(Method m : dmethods) {
 				if(m.getReturnType().getName().equals("org.darien.types.S")) {
 					if(debug_on) {
-						System.out.println("Found method: " + m);
+						System.out.println("In this method: " + m);
 					}
 					
 					JavaClass jc = Repository.lookupClass(cls);
@@ -71,7 +71,7 @@ public class CodeGen {
 						switch(opcode) {
 						    case Const.ARETURN:
 						    	if(debug_on) {
-						    		System.out.println("Found return instruction: " + ri);
+						    		System.out.println("  Found return instruction: " + ri);
 						    	}
 						    	if(!ri.isSuccessType(org.darien.types.impl.Success.class)) {
 						    		rets.add(ri);
@@ -92,8 +92,9 @@ public class CodeGen {
 					}
 			
 					if(debug_on) {
+						System.out.println("The unique types that are returned from the above method are:");
 						for(ReturnInvocation ret_i : rets) {
-							System.out.println(ret_i);
+							System.out.println("  " + ret_i);
 						}
 					}
 
@@ -108,7 +109,16 @@ public class CodeGen {
 					bytes.close();
 
 					if(outputcode) {
+						System.out.println();
+						System.out.println("Code is:");
+						System.out.println();
 						System.out.println(cg);
+					}
+					
+					if(args.containsKey("outputimports") && args.get("outputimports")) {
+						for(String im : cg.getImports()) {
+							System.out.println(im);
+						}
 					}
 					
 					return cg;
