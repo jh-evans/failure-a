@@ -7,6 +7,13 @@ public class Main {
 	public static void main(String[] args) {
 		if(args.length == 0 ) {
 			System.err.println("Usage: " + Main.class.getName() + " [-v] [-outputcode] [-outputimports] [-pre17] <fully qualified classname>");
+			System.err.println("  -v switch on verbose output. No need for -v true. -v is enough.");
+			System.err.println("  -outputcode outputs generated code. Generall, you always want this on.");
+			System.err.println("  -outputimports outputs the imports you need to use the generated code.");
+			System.err.println("  -pre17 The code generated is not reliant on a Java 17 type switch preview feature");
+			System.err.println("  <fully qualified classname> The class to be found on the classpath that returns org.darien.types.S\n" +
+	                           "    This tool will generate the Java source code for you to call this code.");
+			System.err.println("See https://darien-project.readthedocs.io/en/latest/ for more information");
 			System.exit(99);
 		}
 		
