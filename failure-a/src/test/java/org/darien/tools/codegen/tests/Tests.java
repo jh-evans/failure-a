@@ -88,7 +88,7 @@ public class Tests {
     @Test
     void find_default_case() {
     	String def = "default ->";
-    	assertTrue(find(def).getCode().equals(def));
+    	assertTrue(find(def).getCode().startsWith(def));
     }
     
     @Test

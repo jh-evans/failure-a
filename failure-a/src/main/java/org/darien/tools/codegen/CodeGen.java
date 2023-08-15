@@ -33,7 +33,7 @@ public class CodeGen {
 		if(debug_on) {
 			System.out.println("Looking for this class: " + classname);
 			System.out.println("Searching this classpath");
-			for(String dir : System.getProperty("java.class.path").split(";")) {
+			for(String dir : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
 				System.out.println("  " + dir);
 			}
 		}

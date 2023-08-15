@@ -129,9 +129,7 @@ public class CodeGenerator {
 
 			current_child = ifb;
 
-			current_child.addChild(new CodeNode("default ->"));
-			current_child.addChild(new CodeNode(" "));
-			current_child.addChild(new CodeNode("{System.out.println(\"You should not see this\");}"));
+			current_child.addChild(new CodeNode("default -> System.out.println(\"You should not see this\");"));
 			current_child.addChild(new CodeNode("\n"));
 			
             return "obj";
