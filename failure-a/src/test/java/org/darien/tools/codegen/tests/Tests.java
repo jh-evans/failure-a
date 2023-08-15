@@ -22,9 +22,9 @@ public class Tests {
 		if(this.cg == null) {
 			CodeGen codegen = new CodeGen();
 			var args = new HashMap<String, Boolean>();
-			args.put("pre17", true);
-			args.put("outputcode", true);
-			args.put("outputimports", true);
+			args.put("pre17", false);
+			args.put("outputcode", false);
+			args.put("outputimports", false);
 			this.cg = codegen.generate("org.darien.tools.codegen.tests.TestCodeGen", args);
 		}
 
@@ -63,7 +63,7 @@ public class Tests {
 
     @Test
     void find_switch_unwrap() {
-    	String witch = "switch(obj)";
+    	String witch = "switch";
     	assertTrue(find(witch).getCode().equals(witch));
     }
 
@@ -87,7 +87,7 @@ public class Tests {
     
     @Test
     void find_default_case() {
-    	String def = "default -> {}";
+    	String def = "default ->";
     	assertTrue(find(def).getCode().equals(def));
     }
     

@@ -1,7 +1,5 @@
 package org.darien.tools.codegen;
 
-import static org.junit.Assert.assertTrue;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -9,10 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.darien.types.FailureArgIsNull;
-import org.darien.types.FailureError;
-import org.darien.types.FailureException;
 
 public class CodeGenerator {
 	private boolean pre17;
@@ -134,8 +128,10 @@ public class CodeGenerator {
 			}
 
 			current_child = ifb;
-			
-			current_child.addChild(new CodeNode("default -> {System.out.println(\"You should not see this\");}"));
+
+			current_child.addChild(new CodeNode("default ->"));
+			current_child.addChild(new CodeNode(" "));
+			current_child.addChild(new CodeNode("{System.out.println(\"You should not see this\");}"));
 			current_child.addChild(new CodeNode("\n"));
 			
             return "obj";

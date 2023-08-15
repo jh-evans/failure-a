@@ -85,7 +85,7 @@ public class Tests {
     	assertTrue(fain_r != null);
     	assertTrue(fain_r instanceof FAIN);
     	
-    	S obj = TestUtils.getField("org.darien.types.impl.ArgsList", "idxs", null);//fain_r);
+    	S obj = TestUtils.getField("org.darien.types.impl.ArgsList", "idxs", fain_r);
     	
     	if(obj.eval()) {
     		List<Number> idxs = (List<Number>) obj.unwrap();
