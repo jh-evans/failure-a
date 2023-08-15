@@ -19,21 +19,22 @@ import org.apache.bcel.util.ByteSequence;
 
 public class CodeGen {
 	public CodeGenerator generate(String classname, Map<String, Boolean> args) {
-		boolean debug_on = false;
+		boolean verbose = false;
 		boolean outputcode = false;
 
-		if(args.containsKey("debug")) {
-			debug_on = args.get("debug");
+		if(args.containsKey("v")) {
+			verbose = args.get("v");
 		}
 		
 		if(args.containsKey("outputcode")) {
 			outputcode = args.get("outputcode");
 		}
 		
-		if(debug_on) {
+		if(verbose) {
 			System.out.println("Looking for this class: " + classname);
-			System.out.println("Searching this classpath");
-			for(String dir : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+			String[] classpath_locations = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
+			System.out.println("Searching <" + classpath_locations.length + "> classpath locations");
+			for(String dir : classpath_locations) {
 				System.out.println("  " + dir);
 			}
 		}
@@ -54,8 +55,9 @@ public class CodeGen {
 			Method[] dmethods = cls.getDeclaredMethods();
 			for(Method m : dmethods) {
 				if(m.getReturnType().getName().equals("org.darien.types.S")) {
-					if(debug_on) {
-						System.out.println("In this method: " + m);
+					if(verbose) {
+						System.out.println("In this method <" + m.getName() + ">:");
+						System.out.println("  " + m.toGenericString());
 					}
 					
 					JavaClass jc = Repository.lookupClass(cls);
@@ -65,13 +67,15 @@ public class CodeGen {
 					ReturnInvocation ri = null;
 					Set<ReturnInvocation> rets = new HashSet<ReturnInvocation>();
 					
+					String msg = "Return invocations are:\n";
+					
 					while(bytes.available() > 0) {
 						short opcode = (short) bytes.readUnsignedByte();
 						
 						switch(opcode) {
 						    case Const.ARETURN:
-						    	if(debug_on) {
-						    		System.out.println("  Found return instruction: " + ri);
+						    	if(verbose) {
+						    		msg += "  " + ri + "\n";
 						    	}
 						    	if(!ri.isSuccessType(org.darien.types.impl.Success.class)) {
 						    		rets.add(ri);
@@ -91,8 +95,11 @@ public class CodeGen {
 						}
 					}
 			
-					if(debug_on) {
-						System.out.println("The unique types that are returned from the above method are:");
+					if(verbose) {
+						if(!msg.equals("Return invocations are:")) {
+							System.out.println(msg.stripTrailing());
+						}
+						System.out.println("For method <" + m.getName() + "> these are the unique types returned:");
 						for(ReturnInvocation ret_i : rets) {
 							System.out.println("  " + ret_i);
 						}
@@ -104,7 +111,7 @@ public class CodeGen {
 					cg.setSimpleType(m);
 					cg.setMethodCall(m);
 
-					String varname = cg.addSuccessPath(rets);
+					cg.addSuccessAndFailurePath(rets);
 
 					bytes.close();
 

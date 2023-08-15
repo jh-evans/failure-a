@@ -2,38 +2,50 @@ package org.darien.tools.codegen;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class Main {
 	public static void main(String[] args) {
 		if(args.length == 0 ) {
-			System.out.println("Usage: " + Main.class.getName() + " [-debug] [-outputcode] [-outputimports] [-pre17] <fully qualified classname>");
+			System.err.println("Usage: " + Main.class.getName() + " [-v] [-outputcode] [-outputimports] [-pre17] <fully qualified classname>");
+			System.exit(99);
 		}
 		
 		Map<String, Boolean> flags = new HashMap<String, Boolean>();
-		flags.put("debug", false);
+		flags.put("v", false);
 		flags.put("outputcode", false);
 		flags.put("outputimports", false);
 		flags.put("pre17", false);
-
-		for(String arg : args) {
-			if(arg.equals("-debug")) {
-				flags.put("debug", true);
+		
+		for(int i = 0; i < args.length - 1; i++) {
+			String arg = args[i];
+			
+			if(arg.equals("-v")) {
+				flags.put("v", true);
+			} else {
+				if(arg.equals("-outputcode")) {
+					flags.put("outputcode", true);
+				} else {
+					if(arg.equals("-outputimports")) {
+						flags.put("outputimports", true);
+					} else {
+						if(arg.equals("-pre17")) {
+							flags.put("pre17", true);
+						} else {
+							System.err.println("<" + arg + "> is an unknown flag. Exiting.");
+							System.exit(101);
+						}
+					}
+				}
 			}
-			if(arg.equals("-outputcode")) {
-				flags.put("outputcode", true);
-			}
-			if(arg.equals("-outputimports")) {
-				flags.put("outputimports", true);
-			}
-			if(arg.equals("-pre17")) {
-				flags.put("pre17", true);
+			
+			if(flags.containsKey("v") && flags.get("v")) {
+				System.out.println("Processing arg <" + arg +">");
 			}
 		}
 		
 		String classname = args[args.length - 1];
 		
-		if(flags.containsKey("debug") && flags.get("debug")) {
+		if(flags.containsKey("v") && flags.get("v")) {
 			System.out.println("Running with these flags:");
 			for(Map.Entry<String, Boolean> e : flags.entrySet()) {
 				System.out.println("  -" + e.getKey() + "=" + e.getValue());

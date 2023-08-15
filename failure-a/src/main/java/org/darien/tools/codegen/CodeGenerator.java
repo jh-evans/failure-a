@@ -74,7 +74,7 @@ public class CodeGenerator {
 		return typename.replace("org.darien.types.", "");
 	}
 	
-	public String addSuccessPath(Set<ReturnInvocation> rets) {
+	public void addSuccessAndFailurePath(Set<ReturnInvocation> rets) {
 		IfElseStatement if_else_statement = new IfElseStatement("obj.eval()");
 		current_child.addChild(if_else_statement);
 
@@ -114,8 +114,6 @@ public class CodeGenerator {
 
 			current_child.addChild(new CodeNode("default : System.out.println(\"You should not see this\");"));
 			current_child.addChild(new CodeNode("\n"));
-			
-			return "i";
 		} else {
 			Switch s = new Switch("obj");
 			if_else_statement.getElseBlock().addChild(s);
@@ -131,8 +129,6 @@ public class CodeGenerator {
 
 			current_child.addChild(new CodeNode("default -> System.out.println(\"You should not see this\");"));
 			current_child.addChild(new CodeNode("\n"));
-			
-            return "obj";
 		}
 	}
 
