@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;org.apache.commons.failure.tests&apos;" deleteContents="false" description="Delete resource &apos;org.apache.commons.failure.tests&apos;" element1="/org.apache.commons.failure.tests" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1689519956706"/>
-</session>
