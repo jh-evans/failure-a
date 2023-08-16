@@ -1,4 +1,0 @@
-sourcecode
-classname
-href
-stacktrace

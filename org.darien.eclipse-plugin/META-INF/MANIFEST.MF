@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse-plugin
-Bundle-SymbolicName: org.darien.eclipse-plugin;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.ui
-Automatic-Module-Name: org.darien.eclipse.plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-17
