@@ -24,10 +24,12 @@ C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\F
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\ReturnInvocation.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\FErr.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\FPR.java
+C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\FAFC.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\FExp.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureException.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailurePartialResult.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\ElseStatement.java
+C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureArgFailsCheck.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\Failure.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\FAIN.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureError.java

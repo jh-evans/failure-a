@@ -22,14 +22,26 @@ public class Success implements S {
 
 	/** Wrap the object to be passed back from your code that may fail.
 	 *
+	 *@param value - the object to be wrapped and retrieved with unwrap
 	 */
 	public Success(Object value) {
 		this.value = value;
 	}
-	
+
+	/** Wrap the object to be passed back from your code that may fail.
+	 *
+	 *@return true as evaluating an exact S-typed object (and not a subtype) is always true
+	 */
+			 
 	public boolean eval() {
 		return true;
 	}
+
+
+	/** Wrap the object to be passed back from your code that may fail.
+	 *
+	 *@return the object that was wrapped in the constructor
+	 */
 	
 	public Object unwrap() {
 		return this.value;

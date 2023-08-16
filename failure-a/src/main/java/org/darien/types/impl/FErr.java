@@ -25,7 +25,7 @@ public class FErr extends Failure implements FailureError {
 		return this.e;
 	}
 
-	/** Overrides getLocation on {@link org.darien.types.impl.Failure} to return the whole stacktrace.
+	/** Overrides getLocation on {@link org.darien.types.impl.Failure} to return the entire stacktrace.
 	 */
 	@Override
 	public String getLocation() {

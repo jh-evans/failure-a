@@ -8,37 +8,106 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
+/**
+ * This class generates Java failure and success path sourcecode that you paste into your code.
+ * <p>
+ * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
+ */
+
 public class CodeGenerator {
 	private boolean pre17;
-	private boolean typecheckmethod;
 	
 	private CodeNode root;
 	private CodeNode current_child;
 	
 	private String method_name;
-	private List<String> case_stmts;
 
 	private List<String> imports;
 	
+	/**
+	 * Instantiates a new code generator.
+	 *
+	 * @param args - The program flags passed from {@link org.darien.tools.codegen.Main}
+	 */
 	public CodeGenerator(Map<String, Boolean> args) {
 		this.root = new CodeNode();
-		this.case_stmts = new ArrayList<String>();
 		this.imports = new ArrayList<String>();
 
 		if(args.containsKey("pre17")) {
 			pre17 = args.get("pre17");
 		}
-		
-		if(args.containsKey("typecheckmethod")) {
-			typecheckmethod = args.get("typecheckmethod");
+	}
+
+	/**
+	 * Gets the Java imports statements that are required to import the code types and classes generated
+	 *
+	 * @return the list of import statements
+	 */
+	public List<String> getImports() {
+		Collections.sort(this.imports);
+		Collections.reverse(this.imports);
+		return this.imports;
+	}
+
+	/**
+	 * Within the tree of nodes, treating node as a root, recursively search for a node whose code equals v
+	 * This is used by {@link org.darien.tools.codegen.tests.Tests} to check the generated source code contains
+	 * the Java code expected.
+	 * 
+	 * @param v the code string being searched for
+	 * @param node the root of where in the tree to start searching
+	 * @return the found CodeNode
+	 */
+	public CodeNode getObj(String v, CodeNode node) {
+		//System.out.println("<" + node.getCode() + "," + v + ":" + (node.getCode().equals(v) ? " true" : " false"));
+		if(node.getCode().equals(v)) {
+			return node;
+		} else {
+			for(CodeNode n : node.children) {
+				CodeNode r = getObj(v, n);
+				if(r.getCode().equals(v)) {
+					return r;
+				}
+			}
 		}
+		
+		return new CodeNode(v + " not found");
 	}
 	
+	/**
+	 * To string. Printing this object causes the generated code to be returned.
+	 *
+	 * @return the string
+	 */
+	public String toString() {
+		return root.toString();
+	}
+	
+	/**
+	 * Gets the root.
+	 *
+	 * @return the root
+	 */
 	public CodeNode getRoot() {
 		return this.root;
 	}
 	
-	public void setSimpleType(Method m) {
+	/**
+	 * Generate the Java sourcecode for the given method (that must return org.darien.types.S).
+	 *
+	 * @param m the method the Java sourcecode will be generated for
+	 * @param rets contain the types that this metthod returns so the sourcecode handles this in the failure path
+	 */
+	public void process(Method m, Set<ReturnInvocation> rets) {
+		addImport(m.getReturnType().getCanonicalName());
+		setSimpleType(m);
+		setMethodCall(m);
+
+		addSuccessAndFailurePath(rets);
+	}
+	
+	private void setSimpleType(Method m) {
 		CodeNode rt = new CodeNode(simpleType(m.getReturnType().getCanonicalName()));
 		root.addChild(rt);
 		CodeNode child = new CodeNode(" ");
@@ -46,8 +115,7 @@ public class CodeGenerator {
 		this.current_child = child;
 	}
 
-	
-	public void setMethodCall(Method m) {		
+	private void setMethodCall(Method m) {		
 		if(Modifier.isStatic(m.getModifiers())) {
 			String name =  m.getDeclaringClass().getCanonicalName();
 			String[] name_components = name.split("\\.");
@@ -74,7 +142,7 @@ public class CodeGenerator {
 		return typename.replace("org.darien.types.", "");
 	}
 	
-	public void addSuccessAndFailurePath(Set<ReturnInvocation> rets) {
+	private void addSuccessAndFailurePath(Set<ReturnInvocation> rets) {
 		IfElseStatement if_else_statement = new IfElseStatement("obj.eval()");
 		current_child.addChild(if_else_statement);
 
@@ -132,7 +200,7 @@ public class CodeGenerator {
 		}
 	}
 
-	public void addIntegerCaseStatement(CodeNode parent, int i, ReturnInvocation reti) {
+	private void addIntegerCaseStatement(CodeNode parent, int i, ReturnInvocation reti) {
 		addImport((!reti.method_return_type.equals("V") ? reti.method_return_type : reti.type));
 		String stn = reti.simpleTypeName();
 		
@@ -142,7 +210,7 @@ public class CodeGenerator {
 		parent.addChild(case_line);
 	}
 	
-	public void addTypedCaseStatement(CodeNode parent, ReturnInvocation reti) {
+	private void addTypedCaseStatement(CodeNode parent, ReturnInvocation reti) {
 		addImport((!reti.method_return_type.equals("V") ? reti.method_return_type : reti.type));
 		String stn = reti.simpleTypeName();
 		
@@ -152,7 +220,7 @@ public class CodeGenerator {
 		parent.addChild(case_line);
 	}
 	
-	public void addImport(String type) {
+	private void addImport(String type) {
 		imports.add("import " + type + ";");
 	}
 	
@@ -161,31 +229,5 @@ public class CodeGenerator {
 				.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
 				.toString()
 				.toLowerCase();
-	}
-	
-	public List<String> getImports() {
-		Collections.sort(this.imports);
-		Collections.reverse(this.imports);
-		return this.imports;
-	}
-
-	public CodeNode getObj(String v, CodeNode node) {
-		//System.out.println("<" + node.getCode() + "," + v + ":" + (node.getCode().equals(v) ? " true" : " false"));
-		if(node.getCode().equals(v)) {
-			return node;
-		} else {
-			for(CodeNode n : node.children) {
-				CodeNode r = getObj(v, n);
-				if(r.getCode().equals(v)) {
-					return r;
-				}
-			}
-		}
-		
-		return new CodeNode(v + " not found");
-	}
-	
-	public String toString() {
-		return root.toString();
 	}
 }

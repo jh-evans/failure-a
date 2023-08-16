@@ -1,19 +1,34 @@
 package org.darien.tools.codegen;
 
+/** Represent the 'else' statement when generating Java sourcecode
+ * 
+ */
+
 public class ElseBlock extends CodeNode {
-	int numberSpaces;
 	
+	private int numberSpaces;
+	
+	/**
+	 * Instantiates a new else block.
+	 */
 	public ElseBlock() {
 		this.numberSpaces = 4;
 	}
 	
+	/**
+	 * Add a child to this node.
+	 *
+	 * @param node the node
+	 */
 	public void addChild(CodeNode node) {
 		this.children.add(node);
 	}
 	
-	public void closeCodeBlock() {
-	}
-	
+	/**
+	 * Print this else block, handling indentation, a configurable number of spaces at a time.
+	 *
+	 * @return the string
+	 */
 	public String toString() {
 		String result = "{\n";
 
