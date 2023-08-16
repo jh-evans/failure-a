@@ -6,8 +6,12 @@ package org.darien.types;
  * <p>
  * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
  */
+
 public interface FailureError extends F {
+
 	/**
+	 * Return the java.lang.Error subclass in your code that caused a method to fail.
+	 * 
 	 * @return The error caught in your code that may fail and returned by it.
 	 * @since 1.0.0
 	 */

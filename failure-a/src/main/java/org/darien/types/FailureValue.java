@@ -7,6 +7,8 @@ package org.darien.types;
  */
 public interface FailureValue extends F {
 	/**
+	 * Return the number that represents a failure value in your code.
+	 * 
 	 * @return The value that represents failure in your code, e.g., -1 for no index found on a string.
 	 * @since 1.0.0
 	 */

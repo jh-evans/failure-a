@@ -7,7 +7,10 @@ package org.darien.types;
  * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
  */
 public interface FailurePartialResult extends F  {
+	
 	/**
+	 * Gets the partial result returned from your code that returns an instance of the type {@link org.darien.types.S}.
+	 *
 	 * @return The object that represent partial failure.
 	 * @since 1.0.0
 	 */

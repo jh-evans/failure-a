@@ -8,13 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// TODO: Auto-generated Javadoc
-/**
- * This class generates Java failure and success path sourcecode that you paste into your code.
- * <p>
- * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
- */
-
 public class CodeGenerator {
 	private boolean pre17;
 	
@@ -25,11 +18,6 @@ public class CodeGenerator {
 
 	private List<String> imports;
 	
-	/**
-	 * Instantiates a new code generator.
-	 *
-	 * @param args - The program flags passed from {@link org.darien.tools.codegen.Main}
-	 */
 	public CodeGenerator(Map<String, Boolean> args) {
 		this.root = new CodeNode();
 		this.imports = new ArrayList<String>();
@@ -38,27 +26,13 @@ public class CodeGenerator {
 			pre17 = args.get("pre17");
 		}
 	}
-
-	/**
-	 * Gets the Java imports statements that are required to import the code types and classes generated
-	 *
-	 * @return the list of import statements
-	 */
+	
 	public List<String> getImports() {
 		Collections.sort(this.imports);
 		Collections.reverse(this.imports);
 		return this.imports;
 	}
 
-	/**
-	 * Within the tree of nodes, treating node as a root, recursively search for a node whose code equals v
-	 * This is used by {@link org.darien.tools.codegen.tests.Tests} to check the generated source code contains
-	 * the Java code expected.
-	 * 
-	 * @param v the code string being searched for
-	 * @param node the root of where in the tree to start searching
-	 * @return the found CodeNode
-	 */
 	public CodeNode getObj(String v, CodeNode node) {
 		//System.out.println("<" + node.getCode() + "," + v + ":" + (node.getCode().equals(v) ? " true" : " false"));
 		if(node.getCode().equals(v)) {
@@ -74,31 +48,15 @@ public class CodeGenerator {
 		
 		return new CodeNode(v + " not found");
 	}
-	
-	/**
-	 * To string. Printing this object causes the generated code to be returned.
-	 *
-	 * @return the string
-	 */
+
 	public String toString() {
 		return root.toString();
 	}
-	
-	/**
-	 * Gets the root.
-	 *
-	 * @return the root
-	 */
+
 	public CodeNode getRoot() {
 		return this.root;
 	}
 	
-	/**
-	 * Generate the Java sourcecode for the given method (that must return org.darien.types.S).
-	 *
-	 * @param m the method the Java sourcecode will be generated for
-	 * @param rets contain the types that this metthod returns so the sourcecode handles this in the failure path
-	 */
 	public void process(Method m, Set<ReturnInvocation> rets) {
 		addImport(m.getReturnType().getCanonicalName());
 		setSimpleType(m);

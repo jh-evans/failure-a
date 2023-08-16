@@ -16,28 +16,8 @@ import org.apache.bcel.classfile.ConstantUtf8;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.util.ByteSequence;
 
-/**
- * This class generates Java sourcecode that helps automate the use of the failure and success paths.
- * <p>
- * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
- */
 
-public class CodeGen {
-	/**
-	 * Create a CodeGen object on which to call generate
-	 */
-	
-	public CodeGen() {	
-	}
-	
-	/**
-	 * Return an object that contains a tree of generated sourcecode.
-	 * 
-	 * @param classname - The classname to process which is likely to contain methods that return {@link org.darien.types.S}
-	 * @param args - The run-time flags that control how the sourcecode is generated
-	 * @return The object that contains the Java sourcecode that calls the processed method that returns an instance of {@link org.darien.types.S}
-	 */
-	
+public class CodeGen {	
 	public CodeGenerator generate(String classname, Map<String, Boolean> args) {
 		boolean verbose = false;
 		boolean outputcode = false;

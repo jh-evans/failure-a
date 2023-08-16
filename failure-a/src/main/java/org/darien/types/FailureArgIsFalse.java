@@ -7,7 +7,9 @@ package org.darien.types;
  */
 public interface FailureArgIsFalse extends F {
 	/**
-	 * @return Add which index (starting at 0) a parameter within a list passed to your method that is false
+	 * Add the index of the failing method parameter
+	 * 
+	 * @param idx Add which index (starting at 0) a parameter within a list passed to your method that is false
 	 * @since 1.0.0
 	 */
 	public void addIndex(Number idx);

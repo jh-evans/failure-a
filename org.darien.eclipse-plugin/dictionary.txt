@@ -1,3 +1,4 @@
 sourcecode
 classname
 href
+stacktrace

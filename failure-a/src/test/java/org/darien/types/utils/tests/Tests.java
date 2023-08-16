@@ -3,11 +3,7 @@ package org.darien.types.utils.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.darien.types.FailureArgIsFalse;
 import org.darien.types.FailureArgIsNull;
@@ -16,9 +12,6 @@ import org.darien.types.FailureException;
 import org.darien.types.S;
 import org.darien.types.impl.FAIF;
 import org.darien.types.impl.FAIN;
-import org.darien.types.impl.FErr;
-import org.darien.types.impl.FExp;
-import org.darien.types.impl.FV;
 import org.darien.types.utils.FailureUtils;
 import org.junit.jupiter.api.Test;
 public class Tests {

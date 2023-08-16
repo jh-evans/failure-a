@@ -8,5 +8,11 @@ import java.util.List;
  * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
  */
 public interface FailureArgIsNull extends F {
+	
+	/**
+	 * Gets the indices.
+	 *
+	 * @return the indices of the method parameters that have failed
+	 */
 	public List<Number> getIndices();
 }

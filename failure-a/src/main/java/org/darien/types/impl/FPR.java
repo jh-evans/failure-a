@@ -10,14 +10,20 @@ import org.darien.types.FailurePartialResult;
 
 public class FPR extends Failure implements FailurePartialResult {
 
-	/** Construct a wrapped partial result.
+	/**
+	 *  Construct a wrapped partial result.
+	 *
+	 * @param value the partial result to be wrapped
 	 */	
 	
 	public FPR(Object value) {
 		this.value = value;
 	}
 	
-	/** Return the wrapped value.
+	/**
+	 *  Return the wrapped value.
+	 *
+	 * @return the partial result
 	 */	
 	public Object getPartialResult() {
 		return this.value;

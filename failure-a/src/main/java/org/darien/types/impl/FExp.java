@@ -12,20 +12,29 @@ public class FExp extends Failure implements FailureException {
 	Exception e;
 	StackTraceElement[] ste;
 
-	/** Construct a wrapped exception.
+	/**
+	 *  Construct a wrapped exception.
+	 *
+	 * @param e the exception to wrap.
 	 */	
 	public FExp(Exception e) {
 		this.e = e;
 		this.ste = new Exception().getStackTrace();
 	}
 
-	/** Return the wrapped exception.
+	/**
+	 *  Return the wrapped exception.
+	 *
+	 * @return the exception
 	 */	
 	public Exception getException() {
 		return this.e;
 	}
 	
-	/** Overrides getLocation on {@link org.darien.types.impl.Failure} to return the whole stacktrace.
+	/**
+	 *  Overrides getLocation on {@link org.darien.types.impl.Failure} to return the whole stacktrace.
+	 *
+	 * @return the stacktrace
 	 */	
 	@Override
 	public String getLocation() {

@@ -7,7 +7,10 @@ package org.darien.types;
  * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
  */
 public interface FailureException extends F {
+	
 	/**
+	 * Gets the exception that caused your method call to fail.
+	 *
 	 * @return The exception caught in your code that may fail and returned by it.
 	 * @since 1.0.0
 	 */

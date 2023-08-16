@@ -9,17 +9,21 @@ import org.darien.types.FailureValue;
  */
 
 public class FV extends Failure implements FailureValue {
-	/** The wrapped value representing failure in your code.
-	 */
-	Number n;
+	private Number n;
 
-	/** Construct a wrapped value.
+	/**
+	 *  Construct a wrapped value.
+	 *
+	 * @param n the value to be wrapped.
 	 */	
 	public FV(Number n) {
 		this.n = n;
 	}
 
-	/** Return the wrapped value.
+	/**
+	 *  Return the wrapped value.
+	 *
+	 * @return the wrapped value.
 	 */	
 	public Number getValue() {
 		return this.n;

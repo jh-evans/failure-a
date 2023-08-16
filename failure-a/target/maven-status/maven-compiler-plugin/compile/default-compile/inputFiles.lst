@@ -1,7 +1,5 @@
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureValue.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\IfStatement.java
-C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\use\three\Main.java
-C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\use\four\Main.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\CodeNode.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\Main.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\SwitchBlock.java
@@ -10,7 +8,6 @@ C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codege
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\ElseBlock.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\F.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\ArgsList.java
-C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\use\two\Main.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureArgIsNull.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\Success.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureArgIsFalse.java
@@ -34,6 +31,5 @@ C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\F
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\impl\FAIN.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\FailureError.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\types\utils\FailureUtils.java
-C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\use\one\Main.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\IntegerAssignment.java
 C:\Users\jheva\eclipse-workspace\failure-a\src\main\java\org\darien\tools\codegen\Switch.java

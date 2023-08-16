@@ -11,6 +11,12 @@ import org.darien.types.FailureArgIsNull;
  */
 
 public class FAIN extends ArgsList implements FailureArgIsNull {
+	
+	/**
+	 * Instantiates a new FAIN.
+	 */
+	public FAIN() {
+	}
 
 	/**
 	 * Return the location message in code where null has been passed to a method parameter when checking using {@link org.darien.types.utils.FailureUtils}

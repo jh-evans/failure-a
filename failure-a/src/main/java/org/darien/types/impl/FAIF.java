@@ -12,7 +12,13 @@ import org.darien.types.FailureArgIsFalse;
 public class FAIF extends ArgsList implements FailureArgIsFalse {
 	
 	/**
-	 * Return the location message in code where false has been used in a method parameter when checking using {@link org.darien.types.utils.FailureUtils}
+	 * Instantiates a new FAIF.
+	 */
+	public FAIF() {
+	}
+	
+	/**
+	 * @return the location message in code where false has been used in a method parameter when checking using {@link org.darien.types.utils.FailureUtils}
 	 */
 	public String getLocation() {
 		return super.getLocation(false);
