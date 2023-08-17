@@ -1,9 +1,9 @@
 package org.darien.types;
 
-/** This type is used to wrap a value that fails a run-time argument check, e.g., a URL parameter that does not start
+/** Wraps a value that fails a run-time argument check, e.g., a URL parameter that does not start
  * with 'http:'
- * <p>
- * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
+ * 
+ * <p>See <a href="https://darien-project.readthedocs.io/en/latest/using.html">how to use the Darien Poject</a>.
  */
 
 public interface FailureArgFailsCheck extends F {

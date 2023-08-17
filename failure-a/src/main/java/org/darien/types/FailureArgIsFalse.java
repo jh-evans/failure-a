@@ -1,9 +1,8 @@
 package org.darien.types;
 
-/** This type is used by the implementation of org.darien.types.utils.FailureUtils to capture information about a method
- * parameter that is false in the idx index position {@link org.darien.types.utils.FailureUtils}.
- * <p>
- * Using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
+/** Represents a method parameter that is false. See {@link org.darien.types.utils.FailureUtils#oneIsFalse(Boolean...) oneIsFalse} method.
+ *
+ * <p>See <a href="https://darien-project.readthedocs.io/en/latest/using.html">how to use the Darien Poject</a>.
  */
 public interface FailureArgIsFalse extends F {
 	/**

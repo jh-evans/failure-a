@@ -1,8 +1,8 @@
 package org.darien.types;
 
-/** This is the supertype of all Failure objects. The eval method of all failure types returns false.
+/** This is the supertype of all Failure objects. eval() of all failure types returns false.
  *
- * See the using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
+ * <p>See <a href="https://darien-project.readthedocs.io/en/latest/using.html">how to use the Darien Poject</a>.
  */
 
 public interface F extends S {

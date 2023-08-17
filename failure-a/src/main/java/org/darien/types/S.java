@@ -1,7 +1,9 @@
 package org.darien.types;
 
 /**
- * For how to use this type, see the using section at <a href="https://darien-project.readthedocs.io/en/latest/using.html">The Darien Project Documentation</a>.
+ * The supertype of all Success objects. Your method will return this type. The eval method of all success types returns true.
+ * 
+ * <p>See <a href="https://darien-project.readthedocs.io/en/latest/using.html">how to use the Darien Poject</a>.
  */
 public interface S {
 	/**
