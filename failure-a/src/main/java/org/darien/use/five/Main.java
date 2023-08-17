@@ -5,26 +5,54 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.darien.types.*;
 import org.darien.types.impl.*;
 import org.darien.types.utils.FailureUtils;
 
 public class Main {
-	public S getFile(String filename) {
+	public S getFile(Path filename) {
 		if(FailureUtils.oneIsNull(filename)) {
 			return FailureUtils.theNull(filename);
 		}
 		
 		// write code to take away exceptions having to be thrown, to keep flow easier
-		File file = new File(filename);
+		File file = filename.toFile();
 		if(!file.exists()) {
 			return FailureUtils.theFalse(file.exists());
 		}
 		
 		String line;
 		StringBuilder resultStringBuilder = new StringBuilder();
-	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filename)))) {
+	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+	        while ((line = br.readLine()) != null) {
+	            resultStringBuilder.append(line).append("\n");
+	        }
+	    } catch (IOException e) {
+			return new FExp(e);
+		}
+	
+	    return new Success(resultStringBuilder.toString());
+	}
+	
+	// Special version that creates a FailingBufferedReader to induce an IOException
+	public S getFailingFile(Path filename) {
+		if(FailureUtils.oneIsNull(filename)) {
+			return FailureUtils.theNull(filename);
+		}
+		
+		// write code to take away exceptions having to be thrown, to keep flow easier
+		File file = filename.toFile();
+		if(!file.exists()) {
+			return FailureUtils.theFalse(file.exists());
+		}
+		
+		String line;
+		StringBuilder resultStringBuilder = new StringBuilder();
+		try (BufferedReader br = new FailingBufferedReader(new InputStreamReader(new FileInputStream(file)))) {
 	        while ((line = br.readLine()) != null) {
 	            resultStringBuilder.append(line).append("\n");
 	        }
@@ -38,9 +66,24 @@ public class Main {
 	public static void main(String[] argv) {
 		Main m = new Main();
 		
-		String filename = "C:\\Users\\jheva\\eclipse-workspace\\failure-a\\failure-a\\pom.xm";
+		Path inputfile = Paths.get(System.getProperty("user.dir"), "org.darian.use.five", "tamoshanter");
 		
-		S obj = m.getFile(filename);
+		S obj = m.getFile(inputfile);
+		if(obj.eval()) {
+			String pom = (String) obj.unwrap();
+			System.out.println("Success"); // try printing pom
+		} else {
+			switch(obj) {
+			case FailureArgIsNull fain -> System.out.println(fain.getLocation());
+			case FailureArgIsFalse faif -> System.out.println(faif.getLocation());
+			case FailureException fe -> System.out.println(fe.getLocation());
+			default -> System.out.println("As written, cannot happen");
+			}
+		}
+		
+		// Arg is null
+		
+		obj = m.getFile(null);
 		if(obj.eval()) {
 			String pom = (String) obj.unwrap();
 			System.out.println(pom);
@@ -52,6 +95,48 @@ public class Main {
 			default -> System.out.println("As written, cannot happen");
 			}
 		}
-	        
+		
+		// Arg is false
+		inputfile = Paths.get(System.getProperty("user.dir"), "org.darian.use.five", "filedoesnotexist");
+		
+		obj = m.getFile(inputfile);
+		if(obj.eval()) {
+			String pom = (String) obj.unwrap();
+			System.out.println(pom);
+		} else {
+			switch(obj) {
+			case FailureArgIsNull fain -> System.out.println(fain.getLocation());
+			case FailureArgIsFalse faif -> System.out.println(faif.getLocation());
+			case FailureException fe -> System.out.println(fe.getLocation());
+			default -> System.out.println("As written, cannot happen");
+			}
+		}
+		
+		// FailureException is returned
+		inputfile = Paths.get(System.getProperty("user.dir"), "org.darian.use.five", "tamoshanter");
+		
+		obj = m.getFailingFile(inputfile);
+		if(obj.eval()) {
+			String pom = (String) obj.unwrap();
+			System.out.println(pom);
+		} else {
+			switch(obj) {
+			case FailureArgIsNull fain -> System.out.println(fain.getLocation());
+			case FailureArgIsFalse faif -> System.out.println(faif.getLocation());
+			case FailureException fe -> System.out.println("FE output starts here: " + fe.getLocation());
+			default -> System.out.println("As written, cannot happen");
+			}
+		}
+	}
+	
+	private class FailingBufferedReader extends BufferedReader {
+		public FailingBufferedReader(Reader in) {
+			super(in);
+		}
+		
+		@Override
+		public String readLine() throws IOException {
+			throw new IOException();
+		}
 	}
 }

@@ -1,5 +1,7 @@
 package org.darien.types.impl;
 
+import java.util.Arrays;
+
 import org.darien.types.FailureException;
 
 /**
@@ -38,9 +40,13 @@ public class FExp extends Failure implements FailureException {
 	 */	
 	@Override
 	public String getLocation() {
-		String msg = "";
-		for(StackTraceElement ste: this.ste) {
-			msg += ste.toString() + "\n";
+		String msg = ste[0].toString() + "\n";
+		msg += ste[1].toString() + " **** Call to FExp constructor is here **** \n";
+		
+		StackTraceElement[] dest = new StackTraceElement[ste.length - 2];
+		System.arraycopy(ste, 2, dest, 0, ste.length - 2);
+		for(StackTraceElement elem : Arrays.asList(dest)) {
+		    msg += elem.toString() + "\n";
 		}
 		return msg;
 	}
